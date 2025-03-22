@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+
 const Course = require('../models/Course');
 
 // @route GET /api/courses
@@ -27,6 +29,27 @@ router.post('/', async (req, res) => {
         const course = await newCourse.save();
         res.json(course);
     } catch (err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// GET a single detail course by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    console.log(`Fetching course with ID: ${id}`); // Added logging
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.log('Invalid course ID'); // Added logging
+        return res.status(404).json({ msg: 'Invalid course ID' });
+    }
+    try {
+        const course = await Course.findById(id);
+        if (!course) {
+            console.log('Course not found'); // Added logging
+            return res.status(404).json({ msg: 'Course not found' });
+        }
+        res.json(course);
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
