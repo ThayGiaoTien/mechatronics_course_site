@@ -9,6 +9,8 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+
+// Mount the routes
 app.use('/api/courses', require('./routes/courses')); // make sure that you have routes/courses.js and model/Course.js
 
 // // Connect to MongoDB

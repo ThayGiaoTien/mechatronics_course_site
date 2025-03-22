@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import api from "../lib/api";
 import {Course} from "../types/course";
+import Link from "next/link";
 
 export default function HomePage(){
   const [courses, setCourses] = useState<Course[]>([]);
@@ -11,7 +12,7 @@ export default function HomePage(){
   useEffect(() => {
     async function fetchCourses(){
       try {
-        const res=await api.get('/courses');
+        const res = await api.get('/courses');
         setCourses(res.data);
       } catch (err: any) {
         console.error('Faile to fetch courses:', err);
@@ -32,20 +33,22 @@ export default function HomePage(){
         <p>Loading...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {courses.map(course=> (
-            <div 
-              key = {course._id}
-              className="border rounded_md p-4 shadow hover:shadow-lg transition"
-            >
-              <img 
-                src= {course.thumbnail}
-                alt={course.title}
-                className="w-full h-40 object-cover rounded mb-2"
-              />
-              <h2 className="text-xl font-semibold">{course.title}</h2>
-              <p className="text-sm text-gray-600">{course.description}</p>
-              <p className="text-lg font-bold text-blue-600 mt-2">{course.price.toLocaleString()}</p>   
-            </div>
+          {courses.map((course)=> (
+            // Mapping of courses to wrap each card with link
+            <Link key = {course._id} href={`/courses/${course._id}`}>
+              <div
+                className="bg-pink p-4 rounded shadow-md hover:shadow-lg transition cursor-pointer"
+              >
+                <img 
+                  src= {course.thumbnail}
+                  alt={course.title}
+                  className="w-full h-40 object-cover rounded mb-2"
+                />
+                <h2 className="text-xl font-semibold">{course.title}</h2>
+                <p className="text-sm text-gray-600">{course.description}</p>
+                <p className="text-lg font-bold text-blue-600 mt-2">{course.price.toLocaleString()}</p>   
+              </div>
+            </Link>
           ))}
         </div>
       )}
