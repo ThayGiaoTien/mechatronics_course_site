@@ -1,0 +1,32 @@
+curl -X POST http://localhost:5000/api/courses \
+-H "Content-Type: application/json" \
+-d '{
+    "title" : "PLC Siemen Course",
+    "description": "This course introduce how to programming with PLC Siemens S7-1200 using Codesys",
+    "price": 999999,
+    "thumbnail": "https://via.placeholder.com/300"
+}'
+
+curl -X POST http://localhost:5000/api/courses \
+-H "Content-Type: application/json" \
+-d '{
+    "title" : "Embedded Programming Course with 8051 using Assembly language",
+    "description": "Master the 8bit 8051 Microcontroller is the key to embedded world, especially with knowledge about Assembly low level language",
+    "price": 999999,
+    "thumbnail": "https://via.placeholder.com/300"
+}'
+
+curl -X POST http://localhost:5000/api/auth/register \
+-H "Content-Type: application/json" \
+-d '{
+    "name" : "tienalex",
+    "email": "thelaststanding97@gmail.com",
+    "password": "anhyeudiem143"
+}'
+
+curl -X POST http://localhost:5000/api/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+    "email": "thelaststanding97@gmail.com",
+    "password": "anhyeudiem143"
+}'
