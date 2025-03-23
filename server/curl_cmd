@@ -30,3 +30,6 @@ curl -X POST http://localhost:5000/api/auth/login \
     "email": "thelaststanding97@gmail.com",
     "password": "anhyeudiem143"
 }'
+
+
+curl -v -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2N2RmYzI2ZjJjYWE5MmE3OGFiMTA4ZGMiLCJpYXQiOjE3NDI3Mzk5NjcsImV4cCI6MTc0Mjc0MzU2N30.hbyksyHfE2ZWbTeWwm3ISUP6__P0KKvRvVIC8uIj3rs" http://localhost:5000/api/user/me

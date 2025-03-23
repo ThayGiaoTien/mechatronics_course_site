@@ -13,7 +13,7 @@ app.use(express.json());
 // Mount the routes
 app.use('/api/courses', require('./routes/courses')); // make sure that you have routes/courses.js and model/Course.js
 app.use('/api/auth', require('./routes/auth'));
-
+app.use('/api/user', require('./routes/user'));
 
 
 // // Connect to MongoDB
