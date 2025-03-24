@@ -1,3 +1,7 @@
+sudo systemctl start mongod
+
+
+
 curl -X POST http://localhost:5000/api/courses \
 -H "Content-Type: application/json" \
 -d '{
@@ -28,8 +32,8 @@ curl -X POST http://localhost:5000/api/auth/login \
 -H "Content-Type: application/json" \
 -d '{
     "email": "thelaststanding97@gmail.com",
-    "password": "anhyeudiem143"
+    "password": "anhyeudiem143" 
 }'
 
 
-curl -v -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2N2RmYzI2ZjJjYWE5MmE3OGFiMTA4ZGMiLCJpYXQiOjE3NDI3Mzk5NjcsImV4cCI6MTc0Mjc0MzU2N30.hbyksyHfE2ZWbTeWwm3ISUP6__P0KKvRvVIC8uIj3rs" http://localhost:5000/api/user/me
+curl -v -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2N2RmYzI2ZjJjYWE5MmE3OGFiMTA4ZGMiLCJpYXQiOjE3NDI4MDM3NTIsImV4cCI6MTc0MjgwNzM1Mn0.7whGQbmSOD8NRrg5i77W159kTEpgNgeUsaTvMi0-HUw" http://localhost:5000/api/user/me  
