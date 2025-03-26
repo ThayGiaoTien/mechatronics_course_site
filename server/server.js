@@ -14,6 +14,7 @@ app.use(express.json());
 app.use('/api/courses', require('./routes/courses')); // make sure that you have routes/courses.js and model/Course.js
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
+app.use('/api/admin', require('./routes/admin'));
 
 
 // // Connect to MongoDB

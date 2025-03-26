@@ -15,16 +15,16 @@ export default function LoginPage(){
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log("Logging in...");
+   
             console.log("Sending form data: " ,formData);
             const res = await axios.post('http://localhost:5000/api/auth/login', formData);
             // Save token to localStorage, then redirect
             const {token, user} = res.data;
-            console.log("alo");
+         
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('token', res.data.token);
             console.log("Login succesfully!");
-            router.push('/'); // Automatically redirect to home page
+            router.push('/dashboard'); // Automatically redirect to home page
         } catch (err: any) {
             console.log("Login failed!");
             setError(err.response?.data?.message || 'Login failed');

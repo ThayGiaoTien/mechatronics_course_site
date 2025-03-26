@@ -53,17 +53,21 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid Credentials' });
         }
         const isMatch = await bcrypt.compare(password, user.password);
+        
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid Credentials' });
-        }   
+        } 
+        if (user.isAdmin) console.log("Welcome Boss!");
         const payload= {userId: user._id,
             name: user.name,
             email: user.email,
-            credit: user.credit
+            credit: user.credit,
+           
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET || 'secret', {
             expiresIn: 3600,
         });
+        
         res.json({ token });
     } catch (err) {
         console.error(err.message);

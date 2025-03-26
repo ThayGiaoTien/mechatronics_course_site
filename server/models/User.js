@@ -23,9 +23,13 @@ const UserSchema = new mongoose.Schema({
         default: 99999 // Virtual wallet, initial gift
         
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     //resetPasswordToken: String,
     //resetPasswordExpire: Date,
-});
+}, {timestamps: true});
 
 // Hash password before saving
 UserSchema.pre('save', async function(next){

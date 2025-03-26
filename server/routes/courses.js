@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
 const Course = require('../models/Course');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 // @route GET /api/courses
 // @desc  Get all courses
@@ -54,5 +55,17 @@ router.get('/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// DELETE /api/courses/:id - Delete a course
+router.delete('/:id', auth, admin, async (req, res) => {
+    try{
+        await Course.findByIdAndDelete(req.params.id);
+        res.json({msg: 'Course deleted'});
+    } catch (err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+);
 
 module.exports = router; 

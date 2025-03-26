@@ -7,15 +7,11 @@ const User = require('../models/User');
 router.get('/me', auth, async (req, res) => {    
     try{
         const user = await User.findById(req.user.userId).select('-password');
-        console.log("User found: ", user);
+        //console.log("User found: ", user);
         if (!user) {
             return res.status(404).json({msg: 'User not found'});
         }
-        res.json({msg: 'Yor are authorized', userId: req.user.userId, 
-            userName: user.name,
-            userEmail: user.email,
-            userCredit: user.credit
-        });
+        res.json(user);
     }
     catch(err){
         console.error(err.message);
