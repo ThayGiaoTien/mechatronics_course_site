@@ -59,7 +59,7 @@ export default function Dashboard(){
             
             {userData.isAdmin  && (
                 
-                <a href="/admin/create-course" className="text-blue-500">Go to admin dashboard</a>
+                <a href="/admin/courses" className="text-blue-500">Go to admin dashboard</a>
             )}
         </main>
     );

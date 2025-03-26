@@ -36,6 +36,7 @@ export default function AdminCoursesPage (){
     return (
         <main className="p-6">
             <h1 className="text-2xl font-bold mb-4">Courses Management</h1>
+            <Link href= {`/admin/create-course`}>Create a new course</Link>
             {courses.length === 0 ? (
                 <p>No courses found</p>
             ) : (
