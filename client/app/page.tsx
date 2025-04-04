@@ -6,62 +6,47 @@ import {Course} from "../types/course";
 import Link from "next/link";
 
 export default function HomePage(){
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCourses(){
-      try {
-        const res = await api.get('/courses');
-        setCourses(res.data);
-      } catch (err: any) {
-        console.error('Faile to fetch courses:', err);
-        // Log additional error information
-        console.error("Error response:", err.response);
-        console.error("Error message:", err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchCourses();
-  }, []);
 
   return (
-    <main className="p-6">
-      <h1 className="text-3x1 font-bold mb-4">All Courses</h1>
-      {loading? (
-        <p>Loading...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {courses.map((course)=> (
-            // Mapping of courses to wrap each card with link
-            <Link key = {course._id} href={`/courses/${course._id}`}>
-              <div
-                className="bg-pink p-4 rounded shadow-md hover:shadow-lg transition cursor-pointer"
-              >
-                <img 
-                  src= {course.thumbnail}
-                  alt={course.title}
-                  className="w-full h-40 object-cover rounded mb-2"
-                />
-                <h2 className="text-xl font-semibold">{course.title}</h2>
-                <p className="text-sm text-gray-600">{course.description}</p>
-                <p className="text-lg font-bold text-blue-600 mt-2">{course.price.toLocaleString()}</p>   
-              </div>
+    <nav className="flex items-center justify-between p-4 bg-blue-600 text-red">
+      
+      <div>
+        {/*Hero sections*/}
+        <section 
+          className="bg-cover bg-center h-64 flex items-center justify-center" 
+          style={{ backgroundImage: `url('../sources/homepage_background.jpg')` }}
+        > 
+          <div className="bg-black bg-opacity-50 p-4 rounded">
+            <h1 className="text-4xl font-bold text-white">Welcome to Teacher Forward</h1>
+            <p className="text-white mt-2">Learn from the collected and qualified videos and documentation</p>
+            <Link href='/courses'> 
+              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400">Browse Courses</button>
             </Link>
-          ))}
-        </div>
-      )}
-    </main>
+          </div>
+        </section>
+
+        {/* Categories Section */}
+        <section className= "p-6"> 
+          <h2 className="text-2xl font-bold mb-4">Categories</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <Link href="/courses?category=programming">
+              <h3 className="font-semibold">Programming</h3>
+              <p>Learn the fundamental concepts of programming</p>
+            </Link>
+            <Link href="/courses?category=electronic">
+              <h3 className="font-semibold">Electronics</h3>
+              <p>Learn the fundamental concepts of electronics</p>
+            </Link>
+            <Link href="/courses?category=programming">
+              <h3 className="font-semibold">Robotics and Automations</h3>
+              <p>Learn the fundamental concepts of Robotics, Automations, PLC and manymore</p>
+            </Link>
+          </div>
+        </section>
+
+        {/* Add more categories here */}
+      </div>
+    </nav>
+    
   )};
 
-// Testing Tailwind CSS
-// export default function Home(){
-//   return (
-//     <main className="min-h-sreen bg-yellow-100 flex justify-center items-center">
-//       <h1 className="text-3xl font-bold text-center">
-//         Tailwind is working!
-//       </h1>
-//     </main>
-//   )
-// }

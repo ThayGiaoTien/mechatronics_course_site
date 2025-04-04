@@ -19,11 +19,11 @@ export default function CreateCoursePage() {
             setLoading(true);
             const res = await axios.post('http://localhost:5000/api/courses', formData, {
                 headers: {
-                    Authorization: localStorage.getItem('token'),
+                    Authorization: localStorage.getItem('token')
                 },
             });
             alert('Course created successfully');
-            router.push('/admin/courses');
+            router.push('/courses');
         } catch (err: any) {
             console.error('Failed to create course:', err);
             setError(err.response?.data?.message || 'Failed to create course');

@@ -62,13 +62,14 @@ router.post('/login', async (req, res) => {
             name: user.name,
             email: user.email,
             credit: user.credit,
+            isAdmin: user.isAdmin
            
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET || 'secret', {
             expiresIn: 3600,
         });
         
-        res.json({ token });
+        res.json({ user,token });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

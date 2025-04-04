@@ -56,6 +56,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// UPDATE a course (Admin only)
+router.put('/:id', auth, admin, async (req, res) => {
+    try {
+    console.log('the id is: ', req.params.id);
+      const updatedCourse = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedCourse) return res.status(404).json({ error: 'Course not found' });
+      res.json(updatedCourse);
+    } catch (err) {
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
 // DELETE /api/courses/:id - Delete a course
 router.delete('/:id', auth, admin, async (req, res) => {
     try{
