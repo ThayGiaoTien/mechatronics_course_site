@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
+import DialogConfirmModal from '../components/DeleteConfirmModal';
 
 interface Course {
   _id: string;
@@ -17,7 +18,14 @@ export default function Courses() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
+  
+  const handleRequestDelete = (id:string) => {
+    setSelectedCourseId(id);
+    setShowModal(true);
+  }
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -42,9 +50,7 @@ export default function Courses() {
 
   const handleDelete = async (id: string) => {
    // alert(`Trying to delete course: ${id}`); // Debugging
-    //if (!window.confirm('Are you sure you want to delete this course?')) return;
-    <DeleteConfirmModal() />
-    if()
+    //if (!window.confirm('Are you sure you want to delete this course?')) return
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`http://localhost:5000/api/courses/${id}`, {
@@ -64,6 +70,19 @@ export default function Courses() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
+      {/* ✅ Delete confirmation modal */}
+      <DialogConfirmModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={() => {
+          if (selectedCourseId) {
+            handleDelete(selectedCourseId);
+          }
+        }}
+        message="Are you sure you want to delete this course?"
+      />
+      {/* ✅ Courses list */}
+    
       <h1 className="text-2xl font-bold mb-4">Courses</h1>
       {isAdmin && (
         <Link href="/admin/create-course">
@@ -95,7 +114,7 @@ export default function Courses() {
                  // e.preventDefault();
                   e.stopPropagation();  
                   console.log("Delete clicked for:", course._id); // 🔍 Debug log
-                  handleDelete(course._id);
+                  handleRequestDelete(course._id);
                 }}
                 className="hover:underline bg-red-500 text-white px-3 py-1 rounded"
               >

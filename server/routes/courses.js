@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /api/courses -Create new course
-router.post('/', async (req, res) => {
+router.post('/', auth, admin, async (req, res) => {
     const { title, description, price, thumbnail } = req.body;
     try{
         const newCourse = new Course({
