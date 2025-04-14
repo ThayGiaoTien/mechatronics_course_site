@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    purchasedCourses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
+    }]
     //resetPasswordToken: String,
     //resetPasswordExpire: Date,
 }, {timestamps: true});

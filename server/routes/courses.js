@@ -19,13 +19,15 @@ router.get('/', async (req, res) => {
 
 // POST /api/courses -Create new course
 router.post('/', auth, admin, async (req, res) => {
-    const { title, description, price, thumbnail } = req.body;
+    const { title, description, price, thumbnail, videos } = req.body;
     try{
         const newCourse = new Course({
             title,
             description,
             price,
             thumbnail,
+            videos // Ensure videos is an array
+            //purchasedCount: req.body.purchasedCount || 0 // Ensure purchasedCount is a number
         });
         const course = await newCourse.save();
         res.json(course);
@@ -60,9 +62,11 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', auth, admin, async (req, res) => {
     try {
     console.log('the id is: ', req.params.id);
-      const updatedCourse = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      if (!updatedCourse) return res.status(404).json({ error: 'Course not found' });
-      res.json(updatedCourse);
+    console.log('body is: ', req.body);
+    const { id } = req.params;
+    const updatedCourse = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedCourse) return res.status(404).json({ error: 'Course not found' });
+    res.json(updatedCourse);
     } catch (err) {
       res.status(500).json({ error: 'Server error' });
     }

@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import VideoListForm from '@/app/components/VideoListForm';
 import axios from 'axios';
 
 
@@ -11,6 +12,7 @@ export default function EditCoursePage() {
   const router = useRouter();
   const [course, setCourse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [videos, setVideos] = useState<any[]>([]); // 👈 manage video list
   const [error, setError] = useState('');
 
   // Fetch course data for editing
@@ -24,6 +26,7 @@ export default function EditCoursePage() {
         },
         });
         setCourse(res.data);
+        setVideos(res.data.videos || []); // Initialize videos from course data
       } catch (err: any) {
         console.error('Error fetching course:', err.response?.data || err.message);
         setError('Failed to load course data.');
@@ -36,7 +39,14 @@ export default function EditCoursePage() {
       fetchCourse();
     }
   }, [id]);
+    // No need to include the VideoListForm into the hidden input field since the `videos` state is already being managed and updated directly.
+    // You can safely remove the hidden input field and ensure the `videos` state is part of the `course` object before submission.
 
+    useEffect(() => {
+      if (course) {
+        setCourse({ ...course, videos });
+      }
+    }, [videos]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (course) {
       setCourse({ ...course, [e.target.name]: e.target.value });
@@ -115,6 +125,12 @@ export default function EditCoursePage() {
           className="w-full border p-2"
           required
         />
+
+        {/* 👇 Include the VideoListForm component */}
+          <VideoListForm videos={videos} setVideos={setVideos} />
+          
+    /
+        
         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
           Update Course
         </button>

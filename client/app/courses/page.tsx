@@ -95,10 +95,13 @@ export default function Courses() {
           {/* ✅ Only the image and title are clickable */}
           <Link href={`/courses/${course._id}`}>
             <div className="cursor-pointer">
-              <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover rounded" />
+              
+              {<img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover rounded" />}
               <h2 className="text-lg font-bold mt-2">{course.title}</h2>
             </div>
           </Link>
+          
+
         
           <p className="text-gray-600">{course.description}</p>
           <p className="font-bold mt-2">${course.price}</p>
