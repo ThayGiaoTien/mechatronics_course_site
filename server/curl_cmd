@@ -1,6 +1,6 @@
 sudo systemctl start mongod
 
-
+node
 
 curl -X POST http://localhost:5000/api/courses \
 -H "Content-Type: application/json" \
@@ -11,7 +11,7 @@ curl -X POST http://localhost:5000/api/courses \
     "thumbnail": "https://via.placeholder.com/300"
 }'
 
-curl -X POST http://localhost:5000/api/courses \
+curl -X POST http://localhost:  5000/api/courses \
 -H "Content-Type: application/json" \
 -d '{
     "title" : "Embedded Programming Course with 8051 using Assembly language",
@@ -37,3 +37,15 @@ curl -X POST http://localhost:5000/api/auth/login \
 
 
 curl -v -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2N2RmYzI2ZjJjYWE5MmE3OGFiMTA4ZGMiLCJpYXQiOjE3NDI4MDM3NTIsImV4cCI6MTc0MjgwNzM1Mn0.7whGQbmSOD8NRrg5i77W159kTEpgNgeUsaTvMi0-HUw" http://localhost:5000/api/user/me  
+
+{
+  "_id": "123abc",
+  "title": "How to Use Markdown in Blogs",
+  "content": "## This is a Markdown blog\n![Image](https://cdn.example.com/img.png)",
+  "coverImage": "https://cdn.example.com/cover.jpg",
+  "tags": ["markdown", "writing"],
+  "category": "Documentation",
+  "slug": "how-to-use-markdown-in-blogs",
+  "createdAt": "2025-05-15T10:00:00Z",
+  "updatedAt": "2025-05-15T10:00:00Z"
+}

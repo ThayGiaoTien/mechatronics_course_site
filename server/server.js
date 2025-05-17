@@ -15,7 +15,7 @@ app.use('/api/courses', require('./routes/courses')); // make sure that you have
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/admin', require('./routes/admin'));
-
+app.use('/api/blogs', require('./routes/blogs')); // make sure that you have routes/blog.js and model/Blog.js
 
 // // Connect to MongoDB
 // mongoose.connect(process.env.MONGO_URI, 
