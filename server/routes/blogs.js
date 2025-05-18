@@ -49,8 +49,12 @@ router.get('/:slug', async (req, res) => {
 // Update a blog post (admin only)
 router.put('/:id', auth, admin, async (req, res) => {
   try {
-    const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updated);
+    console.log("id",req.params.id);
+  
+    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });    
+    if (!updatedBlog) return res.status(404).json({ error: 'Course not found' });
+    res.json(updatedBlog);
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -59,6 +63,7 @@ router.put('/:id', auth, admin, async (req, res) => {
 // Delete a blog post (admin only)
 router.delete('/:id', auth, admin, async (req, res) => {
   try {
+    console.log("id",req.params.id);
     await Blog.findByIdAndDelete(req.params.id);
     res.json({ message: 'Deleted successfully' });
   } catch (err) {

@@ -2,19 +2,19 @@
 
 import { useState } from 'react';
 
-interface DialogConfirmProps {
+interface DeleteConfirmProps {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
   message?: string;
 }
 
-export default function DialogConfirmModal({
+export default function DeleteConfirmModal({
   open,
   onClose,
   onConfirm,
   message = 'Are you sure you want to delete this course?',
-}: DialogConfirmProps) {
+}: DeleteConfirmProps) {
   if (!open) return null;
 
   return (

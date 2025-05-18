@@ -4,26 +4,20 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from "rehype-raw";
+//import rehypeHighlight from "rehype-highlight";
 import axios from 'axios';
+import MarkDownEditor from '@/app/components/MarkDownEditor';
 
-interface Blog {
-  title: string;
-  description: string;
-  slug: string;
-  content: string;
-  thumbnail?: string;
-  categories: string[];
-  tags: string[];
-  author: string;
-  iuPublished: boolean;
-  
-}
+import  {Blog}  from '@/types/blog';
+
 export default function BlogDetailPage() {
   // Using useRouter to get the slug from the URL
   // This is the recommended way in Next.js 13+ with app directory
   // as useParams is not available in the app directory
   const router = useRouter();
   const { slug } = useParams();
+
 
   const [blog, setBlog] = useState<Blog | null>(null);
   const [error, setError] = useState('');
@@ -79,11 +73,9 @@ export default function BlogDetailPage() {
           </span>
         ))}
       </div>
-      <div className="prose max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {blog.content}
-        </ReactMarkdown>
-      </div>
+      <article className="prose max-w-none">
+      <MarkDownEditor content={blog.content} />
+    </article>
     </div>
   );
 }

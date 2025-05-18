@@ -45,12 +45,12 @@ export default function AdminBlogEditor() {
         const slugifiedTitle = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
         setSlug(slugifiedTitle);
       }
-      // Check if slug already exists
-      // const existingSlug = await axios.get(`http://localhost:5000/api/blogs/${slug}`);
-      // if (existingSlug.data.exists) {
-      //   alert('Slug already exists. Please choose a different one.');
-      //   return;
-      // }
+      //Check if slug already exists
+      const existingSlug = await axios.get(`http://localhost:5000/api/blogs/${slug}`);
+      if (existingSlug.data.exists) {
+        alert('Slug already exists. Please choose a different one.');
+        return;
+      }
       // Create the blog post 
       await axios.post('http://localhost:5000/api/blogs', {
         title,
@@ -75,6 +75,7 @@ export default function AdminBlogEditor() {
     }
   };
 
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">New Blog Post</h1>
@@ -85,7 +86,7 @@ export default function AdminBlogEditor() {
       <Input label = "Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
 
       <MultiSelect
-        options={["Electronics", "Microcontroller", "PLC", "Mechanica"]}
+        options={["Electronics", "Microcontroller", "Programming", "Mechanical","Embedded","Electrical"]}
         value={categories}
         onChange={setCategories}
         label='Categories'

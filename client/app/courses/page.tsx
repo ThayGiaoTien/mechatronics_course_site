@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import DeleteConfirmModal from '../components/DeleteConfirmModal';
-import DialogConfirmModal from '../components/DeleteConfirmModal';
+
+import DeleteConfitmModal from '../components/DeleteConfirmModal';
 
 interface Course {
   _id: string;
@@ -71,7 +71,7 @@ export default function Courses() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       {/* ✅ Delete confirmation modal */}
-      <DialogConfirmModal
+      <DeleteConfitmModal
         open={showModal}
         onClose={() => setShowModal(false)}
         onConfirm={() => {
@@ -100,9 +100,7 @@ export default function Courses() {
               <h2 className="text-lg font-bold mt-2">{course.title}</h2>
             </div>
           </Link>
-          
-
-        
+ 
           <p className="text-gray-600">{course.description}</p>
           <p className="font-bold mt-2">${course.price}</p>
         

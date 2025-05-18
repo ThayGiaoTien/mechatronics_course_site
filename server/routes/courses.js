@@ -61,9 +61,6 @@ router.get('/:id', async (req, res) => {
 // UPDATE a course (Admin only)
 router.put('/:id', auth, admin, async (req, res) => {
     try {
-    console.log('the id is: ', req.params.id);
-    console.log('body is: ', req.body);
-    const { id } = req.params;
     const updatedCourse = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedCourse) return res.status(404).json({ error: 'Course not found' });
     res.json(updatedCourse);

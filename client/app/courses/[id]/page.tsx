@@ -30,7 +30,7 @@ export default function CourseDetail() {
       try {
         const res = await axios.get(`http://localhost:5000/api/courses/${id}`);
         setCourse(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       } catch (err: any) {
         setError('Failed to load course');
       }
