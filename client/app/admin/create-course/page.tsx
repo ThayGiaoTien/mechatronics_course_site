@@ -5,13 +5,22 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
 
+
+interface Video {
+  title: string;
+  description: string;
+  youtubeId: string;
+  isFree: boolean;
+}
+
+
 export default function CreateCourse() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState<number>(0);
   const [thumbnail, setThumbnail] = useState('');
-  const [videos, setVideos] = useState([]); // 👈 manage video list
+   const [videos, setVideos] = useState<Video[]>([]); // 👈 manage video list
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
