@@ -77,7 +77,7 @@ export default function CreateCourse() {
         />
 
         {/* 👇 Include the VideoListForm component */}
-        <VideoListForm videos={videos} setVideos={setVideos} />
+        <VideoListForm videos={videos}  setVideos={setVideos} />
 
         <button
           type="submit"
