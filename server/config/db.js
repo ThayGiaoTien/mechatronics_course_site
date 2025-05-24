@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const URI = "mongodb+srv://thelaststanding97:wQrWM8rBjxF4utSl@webdb.wxn35ni.mongodb.net/?retryWrites=true&w=majority&appName=WebDB";
+
 
 const connectDB = async() => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/courseDB', {
+        await mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

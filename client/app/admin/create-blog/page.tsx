@@ -3,8 +3,8 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
-const ReactMde = dynamic(() => import('react-mde'), { ssr: false });
-import 'react-mde/lib/styles/css/react-mde-all.css';
+const ReactMde = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
+//import 'react-mde/lib/styles/css/react-mde-all.css';
 
 // Custom components
 import Input from '@/app/components/ui/Input';
@@ -81,27 +81,23 @@ export default function AdminBlogEditor() {
       <h1 className="text-2xl font-bold mb-4">New Blog Post</h1>
 
       <Input label="Title" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} className="mb-2" />
-      <Input label= "Slug" placeholder="Slug (auto-generate or type)" value={slug} onChange={e => setSlug(e.target.value)} className="mb-2" />
+      <Input label="Slug" placeholder="Slug (auto-generate or type)" value={slug} onChange={e => setSlug(e.target.value)} className="mb-2" />
       <Textarea placeholder="Short description..." value={description} onChange={e => setDescription(e.target.value)} className="mb-2" />
-      <Input label = "Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
+      <Input label="Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
 
       <MultiSelect
-        options={["Electronics", "Microcontroller", "Programming", "Mechanical","Embedded","Electrical"]}
+        options={["Electronics", "Microcontroller", "Programming", "Mechanical", "Embedded", "Electrical"]}
         value={categories}
         onChange={setCategories}
-        label='Categories'
-        
+        label="Categories"
       />
 
-      <Input label = "Tag"placeholder="Tags (comma separated)" value={tags} onChange={e => setTags(e.target.value)} className="mb-2" />
+      <Input label="Tag" placeholder="Tags (comma separated)" value={tags} onChange={e => setTags(e.target.value)} className="mb-2" />
 
       <ReactMde
         value={content}
         onChange={setContent}
-        selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
-        generateMarkdownPreview={markdown => Promise.resolve(converter.makeHtml(markdown))}
-        minEditorHeight={300}
+        className="react-md-editor"
       />
 
       <div className="flex justify-between items-center mt-4">
