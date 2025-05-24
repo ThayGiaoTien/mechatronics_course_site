@@ -1,18 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { Video } from '@/types/video';
+import { VideoListFormProps } from '@/types/video_list';
 
-interface Video {
-  title: string;
-  description: string;
-  youtubeId: string;
-  isFree: boolean;
-}
 
-interface VideoListFormProps {
-  videos: Video[];
-  setVideos: React.Dispatch<React.SetStateAction<Video[]>>;
-}
+
 
 export default function VideoListForm({ videos, setVideos }: VideoListFormProps) {
   const handleVideoChange = (index: number, field: keyof Video, value: string | boolean) => {

@@ -1,8 +1,9 @@
 // components/BlogCard.tsx
 'use client';
 import Link from 'next/link';
+import { BlogCardProps } from '@/types/blog_card';
 
-export default function BlogCard({ blog, isAdmin, onRequestDelete }) {
+export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardProps) {
   return (
     <div className="rounded-lg border p-4 shadow-sm hover:shadow-md transition">
       {blog.slug &&

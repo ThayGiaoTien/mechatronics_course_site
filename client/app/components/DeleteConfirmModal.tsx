@@ -1,13 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-interface DeleteConfirmProps {
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  message?: string;
-}
+import { DeleteConfirmProps } from '@/types/delete_confirm';
 
 export default function DeleteConfirmModal({
   open,

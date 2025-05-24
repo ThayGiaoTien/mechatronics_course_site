@@ -1,6 +1,8 @@
 // components/CategoryFilter.tsx
 'use client';
-export default function CategoryFilter({ categories, selected, onSelect }) {
+import { Category} from "@/types/category";
+
+export default function CategoryFilter({ categories, selected, onSelect }: Category ){
     return (
       <div className="flex flex-wrap gap-2 mb-6">
         <button
@@ -9,7 +11,7 @@ export default function CategoryFilter({ categories, selected, onSelect }) {
         >
           All
         </button>
-        {categories.map((cat) => (
+        {categories?.map((cat) => (
           <button
             key={cat}
             onClick={() => onSelect(cat)}
