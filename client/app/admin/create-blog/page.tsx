@@ -96,7 +96,7 @@ export default function AdminBlogEditor() {
 
       <ReactMde
         value={content}
-        onChange={setContent}
+        onChange={(value) => setContent(value || '')}
         className="react-md-editor"
       />
 
