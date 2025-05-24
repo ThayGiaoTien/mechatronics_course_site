@@ -11,10 +11,10 @@ import Input from '@/app/components/ui/Input';
 import Button from '@/app/components/ui/Button';
 import Textarea from '@/app/components/ui/TextArea';
 import MultiSelect from '@/app/components/ui/MultiSelect';
-import * as Showdown from 'showdown';
+import Showdown from 'showdown';
 
 import  {Blog}  from '@/types/blog';
-import { set } from 'mongoose';
+// Removed unused import
 
 export default function EditBlogPage() {
     const params = useParams();
@@ -36,10 +36,10 @@ export default function EditBlogPage() {
     const [id, setId] = useState<string>('');
 
    
-    const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
+    // Removed unused state
     
     
-    const converter = new Showdown.Converter();
+    // Removed unused variable
 
     // Fetch blog data for editing
     
@@ -153,7 +153,7 @@ export default function EditBlogPage() {
     
           <ReactMde
             value={content}
-            onChange={setContent}
+            onChange={(value) => setContent(value || '')}
             className="react-md-editor"
         />
     
