@@ -2,23 +2,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
-type Video = {
-  id: string;
-  title: string;
-  url: string;
-};
 import { useParams, useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
 import axios from 'axios';
 
-  const [videos, setVideos] = useState<Video[]>([]); // 👈 manage video list
+
+interface Video {
+  title: string;
+  description: string;
+  youtubeId: string;
+  isFree: boolean;
+}
+
 export default function EditCoursePage() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
   const [course, setCourse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [videos, setVideos] = useState<any[]>([]); // 👈 manage video list
+  const [videos, setVideos] = useState<Video[]>([]); // 👈 manage video list
   const [error, setError] = useState('');
 
   // Fetch course data for editing
@@ -133,10 +134,9 @@ export default function EditCoursePage() {
         />
 
         {/* 👇 Include the VideoListForm component */}
-          <VideoListForm videos={videos} setVideos={setVideos} />
+        <VideoListForm videos={videos} setVideos={setVideos} />
           
-    /
-        
+ 
         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
           Update Course
         </button>
