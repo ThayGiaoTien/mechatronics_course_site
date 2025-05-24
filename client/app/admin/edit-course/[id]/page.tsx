@@ -2,11 +2,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
+type Video = {
+  id: string;
+  title: string;
+  url: string;
+};
 import { useParams, useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
 import axios from 'axios';
 
-
+  const [videos, setVideos] = useState<Video[]>([]); // 👈 manage video list
 export default function EditCoursePage() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
