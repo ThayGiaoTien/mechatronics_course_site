@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
-const ReactMde = dynamic(() => import('react-mde'), { ssr: false });
-import 'react-mde/lib/styles/css/react-mde-all.css';
+const ReactMde = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
+//import 'react-mde/lib/styles/css/react-mde-all.css';
 
 // Custom components
 import Input from '@/app/components/ui/Input';
@@ -155,11 +155,8 @@ export default function EditBlogPage() {
           <ReactMde
             value={content}
             onChange={setContent}
-            selectedTab={selectedTab}
-            onTabChange={setSelectedTab}
-            generateMarkdownPreview={markdown => Promise.resolve(converter.makeHtml(markdown))}
-            minEditorHeight={300}
-          />
+            className="react-md-editor"
+        />
     
           <div className="flex justify-between items-center mt-4">
             <label className="flex items-center gap-2">
