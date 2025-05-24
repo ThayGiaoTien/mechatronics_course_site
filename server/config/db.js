@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
-const URI = "mongodb+srv://thelaststanding97:wQrWM8rBjxF4utSl@webdb.wxn35ni.mongodb.net/?retryWrites=true&w=majority&appName=WebDB";
+const URI = "mongodb+srv://thelaststanding97:5dpvg3fffcXcR78f@webdb.wxn35ni.mongodb.net/?retryWrites=true&w=majority&appName=WebDB";
 
 
 const connectDB = async() => {
     try {
-        await mongoose.connect(URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(URI  );
         console.log('MongoDB connected');
     } catch (err){
         console.error('MongoDB connection error');

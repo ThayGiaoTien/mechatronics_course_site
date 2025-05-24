@@ -24,7 +24,7 @@ export default function AdminBlogEditor() {
   const [tags, setTags] = useState<string>('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState(''); // Assuming you have a way to get the author
-  const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
+
   const [isPublished, setIsPublished] = useState(false);
 
   const converter = new Showdown.Converter();

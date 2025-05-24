@@ -65,16 +65,17 @@ export default function CourseDetail() {
           {/* <img src={video.thumbnail} alt={video.title} className="w-full h-40 object-cover rounded" /> */}
           {/* ✅ Video iframe */}
             {hasAccess(video) ? (
-              <div className="mt-2 aspect-video">
+                <div className="mt-2 aspect-video">
                 <iframe
                   width="100%"
                   height="315"
-                  src={video.youtubeId.replace("watch?v=", "embed/")}
-                      title={video.title}
-                      frameBorder="0"
-                      allowFullScreen
+                  src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                  title={video.title}
+                  style={{ border: 0 }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 ></iframe>
-              </div>
+                </div>
             ) : (
               <div className="mt-2 text-red-500 italic">
                 🔒 You need to purchase this course to view this video.

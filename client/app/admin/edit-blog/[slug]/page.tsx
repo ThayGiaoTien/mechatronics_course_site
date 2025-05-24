@@ -11,7 +11,6 @@ import Input from '@/app/components/ui/Input';
 import Button from '@/app/components/ui/Button';
 import Textarea from '@/app/components/ui/TextArea';
 import MultiSelect from '@/app/components/ui/MultiSelect';
-//const ReactMde = dynamic(() => import('react-mde'), { ssr: false });
 import * as Showdown from 'showdown';
 
 import  {Blog}  from '@/types/blog';
