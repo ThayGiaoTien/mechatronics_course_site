@@ -33,10 +33,16 @@ export default function Courses() {
         const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         setIsAdmin(user.isAdmin);
-
-        const res = await axios.get(`${api}/courses`, {
+        
+        const res = await api.get('/courses', {
           headers: { Authorization: `Bearer ${token}` },
         });
+       
+        if (res.status !== 200) {
+          throw new Error('Failed to fetch courses');
+        }
+        
+
         setCourses(res.data);
       } catch (err: any) {
         console.error('Error fetching courses:', err);
