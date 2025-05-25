@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import api from '../../lib/api'; // Adjust the import path as necessary
 import Link from 'next/link';
 
 import DeleteConfitmModal from '../components/DeleteConfirmModal';
@@ -33,7 +34,7 @@ export default function Courses() {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         setIsAdmin(user.isAdmin);
 
-        const res = await axios.get('http://localhost:5000/api/courses', {
+        const res = await axios.get(`${api}/courses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(res.data);
