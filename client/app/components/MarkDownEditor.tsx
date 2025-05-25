@@ -15,7 +15,7 @@ type Props = {
 
 export default function MarkdownRenderer({ content }: Props) {
   return (
-    <article className="prose lg:prose-xl dark:prose-invert max-w-none">
+    <article className="prose  lg:prose-xl dark:prose-invert max-w-none">
       <ReactMarkdown
         children={content}
         remarkPlugins={[remarkGfm]}
