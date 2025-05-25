@@ -3,7 +3,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://mechatronicscoursesite-production.up.railway.app/api',  // Updated backend API
+  baseURL: 'https://mechatronicscoursesite-production.up.railway.app/api',  // My backend API
 });
 
 export default api;
+
+//'https://mechatronicscoursesite-production.up.railway.app/api'
+//http://localhost:5000/api'
