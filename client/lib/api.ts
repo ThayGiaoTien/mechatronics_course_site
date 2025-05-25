@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',  // My backend API
+  baseURL: 'http://mechatronicscoursesite-production.up.railway.app:5000/api',  // My backend API
 });
 
 export default api;
