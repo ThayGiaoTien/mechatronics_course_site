@@ -31,19 +31,19 @@ export default function Navbar() {
         <nav className='flex items-center justify-between p-4 bg-blue-600 opacity-90 text-white'>
             <div className='space-x-4 '>
             <Link href='/'> 
-                <span className='font-bold  text-2xl cursor-pointer'>Home</span>
+                <span className='font-bold  text-2xl cursor-pointer'> Trang chủ </span>
             </Link>
             <Link href='/courses'> 
-                <span className='font-bold  text-xl cursor-pointer'>Course</span>
+                <span className='font-italic  text-xl cursor-pointer'>Khóa học</span>
             </Link>
             <Link href='/blogs'> 
-                <span className='font-bold  text-xl cursor-pointer'>Blog</span>
+                <span className='font-italic  text-xl cursor-pointer'>Bài viết</span>
             </Link>
             <Link href='/projects'> 
-                <span className='font-bold  text-xl cursor-pointer'>Projects</span>
+                <span className='font-italic  text-xl cursor-pointer'>Dự án</span>
             </Link>
             <Link href='/about'> 
-                <span className='font-bold  text-xl cursor-pointer'>About</span>
+                <span className='font-italic  text-xl cursor-pointer'>Liên hệ</span>
             </Link>
             </div>
             <div className='space-x-4 inline-flex '>

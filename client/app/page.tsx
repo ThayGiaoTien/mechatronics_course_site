@@ -1,51 +1,192 @@
-'use client';
+// app/page.tsx
+"use client";
 
 import { useEffect, useState } from "react";
-import {Course} from "../types/course";
-import Link from "next/link";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import BlogCard from "./components/BlogCard";
+import axios from "axios";
 
-export default function HomePage(){
+import  {Blog}  from '@/types/blog';
+
+// export const metadata = {
+//   title: "Mechatronics – Home",
+//   description: "Explore mechatronics courses, blogs, and projects.",
+//   openGraph: {
+//     title: "Mechatronics – Home",
+//     description: "Explore mechatronics courses, blogs, and projects.",
+//     url: "https://mechatronics-course-site.vercel.app/",
+//     siteName: "Mechatronics Site",
+//   },
+// };
+
+export default function HomePage() {
+  // State for fetched blogs
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Pagination & sorting state
+  const [sortOption, setSortOption] = useState<"newest" | "oldest" | "views">(
+    "newest"
+  );
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true); // true if next page exists
+
+  // Number of blogs per page
+  const LIMIT = 10;
+
+  // Re-fetch whenever sortOption or page changes
+  useEffect(() => {
+    setLoading(true);
+
+    const fetchBlogs = async () => {
+      try {
+        // Build the query string
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE}/blogs`,
+          {
+            params: {
+              sort: sortOption,
+              page,     // 1-based page
+              limit: LIMIT,
+            },
+          }
+        );
+        const data: Blog[] = res.data;
+
+        setBlogs(data);
+        // If we got fewer than LIMIT items, there's no next page
+        setHasMore(data.length === LIMIT);
+      } catch (err) {
+        console.error("Failed to fetch blogs:", err);
+        setBlogs([]);
+        setHasMore(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, [sortOption, page]);
+
+  // Handlers for sorting
+  const handleSortChange = (option: "newest" | "oldest" | "views") => {
+    setSortOption(option);
+    setPage(1); // reset to first page whenever sorting changes
+  };
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-blue-600 text-red">
-      
-      <div>
-        {/*Hero sections*/}
-        <section 
-          className="bg-cover bg-center h-64 flex items-center justify-center" 
-          style={{ backgroundImage: `url('../sources/homepage_background.jpg')` }}
-        > 
-          <div className="bg-black bg-opacity-50 p-4 rounded">
-            <h1 className="text-4xl font-bold text-white">Welcome to Teacher Forward</h1>
-            <p className="text-white mt-2">Learn from the collected and qualified videos and documentation</p>
-            <Link href='/courses'> 
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400">Browse Courses</button>
-            </Link>
+    <>
+      {/* Navbar */}
+      {/* Hero Section */}
+      <section
+        className="relative mt-16 h-56 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1581091870623-0d796feb1062?auto=format&fit=crop&w=1350&q=80')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-10 flex h-full items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-3xl font-bold">Mechatronics</h1>
+            <p className="mt-1 text-lg">
+              Browse our latest blogs, sorted how you like.
+            </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Categories Section */}
-        <section className= "p-6"> 
-          <h2 className="text-2xl font-bold mb-4">Categories</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <Link href="/courses?category=programming">
-              <h3 className="font-semibold">Programming</h3>
-              <p>Learn the fundamental concepts of programming</p>
-            </Link>
-            <Link href="/courses?category=electronic">
-              <h3 className="font-semibold">Electronics</h3>
-              <p>Learn the fundamental concepts of electronics</p>
-            </Link>
-            <Link href="/courses?category=programming">
-              <h3 className="font-semibold">Robotics and Automations</h3>
-              <p>Learn the fundamental concepts of Robotics, Automations, PLC and manymore</p>
-            </Link>
+      {/* Main Content */}
+      <main className="flex grow flex-col bg-gray-100 pt-6">
+        <div className="max-w-5xl mx-auto px-4">
+          {/* Sort Bar */}
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex gap-2">
+              <button
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  sortOption === "newest"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                }`}
+                onClick={() => handleSortChange("newest")}
+              >
+                Newest
+              </button>
+              <button
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  sortOption === "oldest"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                }`}
+                onClick={() => handleSortChange("oldest")}
+              >
+                Oldest
+              </button>
+              <button
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  sortOption === "views"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                }`}
+                onClick={() => handleSortChange("views")}
+              >
+                Most Viewed
+              </button>
+            </div>
+            <div className="text-sm text-gray-500">
+              Page {page}
+            </div>
           </div>
-        </section>
 
-        {/* Add more categories here */}
-      </div>
-    </nav>
-    
-  )};
+          {/* Blogs Grid */}
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+            </div>
+          ) : blogs.length === 0 ? (
+            <p className="text-center text-gray-600 py-12">
+              No blogs found.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+              {blogs.map((blog) => (
+                <BlogCard 
+                  key={blog._id} 
+                  blog={blog} 
+                  isAdmin={false} 
+                  onRequestDelete={() => {}} 
+                />
+              ))}
+            </div>
+          )}
 
+          {/* Pagination Controls */}
+          <div className="flex items-center justify-between py-4">
+            <button
+              className="px-4 py-2 rounded bg-gray-200 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={page === 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+            >
+              Previous
+            </button>
+            <button
+              className={`px-4 py-2 rounded ${
+                hasMore
+                  ? "bg-blue-600 text-white hover:bg-blue-700"
+                  : "bg-gray-200 text-gray-500 cursor-not-allowed"
+              }`}
+              disabled={!hasMore}
+              onClick={() => hasMore && setPage((p) => p + 1)}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </>
+  );
+}
