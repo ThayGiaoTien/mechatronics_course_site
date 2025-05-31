@@ -9,7 +9,7 @@ connectDB();
 
 // Allow your frontend origin
 app.use(cors({
-    origin: ['https://https://mechatronics-course-site.vercel.app/'],
+    origin: ['https://mechatronics-course-site.vercel.app/'],
     methods: ['GET','POST','PUT','DELETE'],
     credentials: true,            // if you need cookies/auth
   }));

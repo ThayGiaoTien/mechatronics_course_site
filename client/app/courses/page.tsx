@@ -34,7 +34,7 @@ export default function Courses() {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         setIsAdmin(user.isAdmin);
         
-        const res = await api.get('/courses', {
+        const res = await api.get(`${api}/courses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
        
@@ -60,7 +60,7 @@ export default function Courses() {
     //if (!window.confirm('Are you sure you want to delete this course?')) return
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/courses/${id}`, {
+      await axios.delete(`${api}courses/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
