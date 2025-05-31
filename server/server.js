@@ -1,15 +1,16 @@
-const express = require('express');
-const cors= require('cors');
-const connectDB = require('./config/db');
+import express from 'express';
+import cors from 'cors';
+import connectDB from './config/db.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 connectDB();
 
 // Allow your frontend origin
 app.use(cors({
-    origin: ['https://mechatronics-course-site.vercel.app/'],
+    origin: ['https://mechatronics-course-site.vercel.app'],
     methods: ['GET','POST','PUT','DELETE'],
     credentials: true,            // if you need cookies/auth
   }));
@@ -32,10 +33,13 @@ app.use('/api/blogs', require('./routes/blogs')); // make sure that you have rou
 //     }).catch(err => console.log(err));   
 // congif/db.js do it for us
 
-// Test route
-app.get('/', (req, res) => {
+app.options('*', cors()); // handle preflight
+
+
+app.get('/', (_, res) => {
     res.send('Backend is working');
 }); 
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

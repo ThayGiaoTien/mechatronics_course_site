@@ -3,6 +3,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
+import api from '@/lib/api';
 const ReactMde = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 //import 'react-mde/lib/styles/css/react-mde-all.css';
 
@@ -46,13 +47,13 @@ export default function AdminBlogEditor() {
         setSlug(slugifiedTitle);
       }
       //Check if slug already exists
-      const existingSlug = await axios.get(`http://localhost:5000/api/blogs/${slug}`);
+      const existingSlug = await axios.get(`${api}/blogs/${slug}`);
       if (existingSlug.data.exists) {
         alert('Slug already exists. Please choose a different one.');
         return;
       }
       // Create the blog post 
-      await axios.post('http://localhost:5000/api/blogs', {
+      await axios.post(`${api}/blogs`, {
         title,
         description,
         slug,
