@@ -89,7 +89,7 @@ export default function BlogListPage() {
   const handleDelete = async (slug: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${api}/blogs/${slug}`, { 
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${slug}`, { 
         headers: { Authorization: `Bearer ${token}` },
       });
 
