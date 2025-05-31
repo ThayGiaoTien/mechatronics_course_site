@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import api from "../lib/api";
 import {Course} from "../types/course";
 import Link from "next/link";
 
