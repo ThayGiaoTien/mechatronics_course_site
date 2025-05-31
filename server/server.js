@@ -9,24 +9,14 @@ connectDB();
 
 // Allow your frontend origin
 app.use(cors({
-    origin: ['https://mechatronics-course-site.vercel.app/'],
-    methods: ['GET','POST','PUT','DELETE'],
-    credentials: true,            // if you need cookies/auth
+    origin: 'https://mechatronics-course-site.vercel.app',
+    methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type','Authorization']
   }));
 
 app.use(express.json());
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'https://mechatronics-course-site.vercel.app/');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(200);
-}
-);
-// app.use(express.urlencoded({ extended: true })); // if you need to parse form data
-// app.use(express.static('public')); // if you need to serve static files
-// app.use('/uploads', express.static('uploads')); // if you need to serve uploaded files
-// app.use('/uploads', express.static('uploads')); // if you need to serve uploaded files
-// app.use('/static', express.static('public')); // if you need to serve static files from public folder
+
 
 // Mount the routes
 app.use('/api/courses', require('./routes/courses')); // make sure that you have routes/courses.js and model/Course.js
