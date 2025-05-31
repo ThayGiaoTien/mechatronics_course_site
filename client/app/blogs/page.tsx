@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import api from '@/lib/api'; // Adjust the import path as necessary
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -40,7 +39,7 @@ export default function BlogListPage() {
   }, []);
 
   useEffect(() => {
-    axios.get(`${api}/blogs`).then((res) => {
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/blogs`).then((res) => {
       const allBlogs = res.data;
       setBlogs(allBlogs);
 

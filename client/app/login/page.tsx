@@ -4,7 +4,6 @@ import {useState, useContext} from 'react';
 import {useRouter} from 'next/navigation';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import api from '@/lib/api';
 
 export default function LoginPage(){
     const router = useRouter();
@@ -20,14 +19,14 @@ export default function LoginPage(){
         try {
    
             console.log("Sending form data: " ,formData);
-            const res = await axios.post(`${api}/auth/login`, formData);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/auth/login`, formData);
             // Save token to localStorage, update AuthContext then redirect to the homepage
             const {token, user} = res.data;
             localStorage.setItem('user', JSON.stringify(res.data.user));
             localStorage.setItem('token', res.data.token);
             setUser(user);
             console.log("Login succesfully!");
-            router.push(`${api}/`); // Automatically redirect to home page
+            router.push(`${process.env.NEXT_PUBLIC_API_BASE}/`); // Automatically redirect to home page
         } catch (err: any) {
             console.log("Login failed!");
             setError(err.response?.data?.message || 'Login failed');

@@ -12,7 +12,6 @@ import Button from '@/app/components/ui/Button';
 import Textarea from '@/app/components/ui/TextArea';
 import MultiSelect from '@/app/components/ui/MultiSelect';
 import Showdown from 'showdown';
-import api from '@/lib/api'; // Adjust the import path as necessary
 import  {Blog}  from '@/types/blog';
 // Removed unused import
 
@@ -50,7 +49,7 @@ export default function EditBlogPage() {
         }
         const fetchBlog = async () => {
             try {
-                const res = await axios.get(`${api}/blogs/${blogSlug}`, {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${blogSlug}`, {
                     headers: { 
                         Authorization: `Bearer ${localStorage.getItem('token') || ''}` ,
                     },
@@ -99,7 +98,7 @@ export default function EditBlogPage() {
           
         try {
         // Update the blog via a PUT request
-          await axios.put(`${api}/blogs/${id}`, {
+          await axios.put(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${id}`, {
               title,
               description,
               slug,

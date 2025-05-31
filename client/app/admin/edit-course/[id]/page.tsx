@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
-import api from '@/lib/api';
 import axios from 'axios';
 
 
@@ -27,7 +26,7 @@ export default function EditCoursePage() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`${api}/courses/${id}`, {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/courses/${id}`, {
           headers: { 
             Authorization: `Bearer ${localStorage.getItem('token') || ''}` ,
             
@@ -75,7 +74,7 @@ export default function EditCoursePage() {
     }
     try {
       // Update the course via a PUT request
-      await axios.put(`http://localhost:5000/api/courses/${id}`, course, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE}/courses/${id}`, course, {
         headers: { 
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem('token') || ''}` ,

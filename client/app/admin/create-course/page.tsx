@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
 
@@ -36,7 +35,7 @@ export default function CreateCourse() {
         videos, // ✅ include videos in submit payload
       };
 
-      await axios.post(`{api}/courses`, courseData, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/courses`, courseData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

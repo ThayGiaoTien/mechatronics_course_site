@@ -3,8 +3,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useRouter} from 'next/navigation';
-import api from '../../lib/api'; // Adjust the import path as necessary
-
 export default function AdminDashBoard(){
     const router = useRouter();
     const [userData, setUserData] = useState<any>(null);
@@ -26,7 +24,7 @@ export default function AdminDashBoard(){
             return;
         }
         // Fetch user data from the backend
-        axios.get(`${api}/user/me`, {
+        axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/user/me`, {
             headers: {
                 Authorization: token,
             }, 

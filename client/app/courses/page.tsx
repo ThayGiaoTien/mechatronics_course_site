@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import api from '../../lib/api'; // Adjust the import path as necessary
 import Link from 'next/link';
 
 import DeleteConfitmModal from '../components/DeleteConfirmModal';
@@ -34,7 +33,7 @@ export default function Courses() {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         setIsAdmin(user.isAdmin);
         
-        const res = await api.get(`${api}/courses`, {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/courses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
        
@@ -60,7 +59,7 @@ export default function Courses() {
     //if (!window.confirm('Are you sure you want to delete this course?')) return
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${api}courses/${id}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}courses/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

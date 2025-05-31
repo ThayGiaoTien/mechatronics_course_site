@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
-import api from '@/lib/api'; // Adjust the import path as necessary
 
 interface Video {
   youtubeId: string;
@@ -29,7 +28,7 @@ export default function CourseDetail() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`${api}/courses/${id}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/courses/${id}`);
         setCourse(res.data);
         //console.log(res.data);
       } catch (err: any) {
