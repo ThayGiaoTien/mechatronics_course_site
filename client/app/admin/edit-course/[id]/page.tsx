@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import VideoListForm from '@/app/components/VideoListForm';
+import api from '@/lib/api';
 import axios from 'axios';
 
 
@@ -26,7 +27,7 @@ export default function EditCoursePage() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}`, {
+        const res = await axios.get(`${api}/courses/${id}`, {
           headers: { 
             Authorization: `Bearer ${localStorage.getItem('token') || ''}` ,
             

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import api from '@/lib/api'; // Adjust the import path as necessary
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -39,7 +40,7 @@ export default function BlogListPage() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/blogs').then((res) => {
+    axios.get(`${api}/blogs`).then((res) => {
       const allBlogs = res.data;
       setBlogs(allBlogs);
 
@@ -89,7 +90,7 @@ export default function BlogListPage() {
   const handleDelete = async (slug: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/blogs/${slug}`, { 
+      await axios.delete(`${api}/blogs/${slug}`, { 
         headers: { Authorization: `Bearer ${token}` },
       });
 

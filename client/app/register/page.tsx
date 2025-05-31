@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';// from next/navigation not next/router 
 import axios from 'axios';
+import api from '@/lib/api'; // Adjust the import path as necessary
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -15,10 +16,10 @@ export default function RegisterPage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+            const res = await axios.post(`${api}/auth/register`, formData);
             // Save token to localStorage, then redirect
             localStorage.setItem('token', res.data.token);
-            router.push('/');  // Automatically redirect to home page
+            router.push(`${api}/`);  // Automatically redirect to home page
         } catch (err: any) {
             setError(err.response?.data?.message || 'Registration failed');
         }

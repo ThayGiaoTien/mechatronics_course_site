@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from "rehype-raw";
 //import rehypeHighlight from "rehype-highlight";
 import axios from 'axios';
+import api from '@/lib/api';
 import MarkDownEditor from '@/app/components/MarkDownEditor';
 
 import  {Blog}  from '@/types/blog';
@@ -36,7 +37,7 @@ export default function BlogDetailPage() {
       //   });
       const fetchBlog = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/api/blogs/${slug}`);
+          const res = await axios.get(`${api}/blogs/${slug}`);
           setBlog(res.data);
         } catch (error) {
           console.error('Error fetching blog:', error);
