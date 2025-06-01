@@ -74,6 +74,10 @@ router.get('/:slug', async (req, res) => {
     const blog = await Blog.findOne({ slug: req.params.slug, isPublished: true });
     if (!blog) return res.status(404).json({ error: 'Blog not found' });
     res.json(blog);
+    // Increment views count
+    blog.views += 1;
+    await blog.save();
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

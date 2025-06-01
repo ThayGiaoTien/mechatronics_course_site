@@ -1,11 +1,6 @@
 // models/Blog.ts
 const mongoose = require('mongoose');
 
-// Helper function to generate a random integer between min (inclusive) and max (exclusive)
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 const BlogSchema = new mongoose.Schema(
   {
     title: {
@@ -45,8 +40,12 @@ const BlogSchema = new mongoose.Schema(
       },
     ],
     author: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'User'
+    },
+    isPublished: {
+      type: Boolean,
+      default: false,
     },
     views: {
       type: Number,

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -17,6 +17,7 @@ import * as Showdown from 'showdown';
 
 export default function AdminBlogEditor() {
   const router = useRouter();
+  const [user, setUser] = useState('');
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
@@ -76,6 +77,12 @@ export default function AdminBlogEditor() {
     }
   };
 
+  useEffect(() => {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      user? setAuthor(user.name) : setAuthor(''); // Set author from user context
+    }, []);
+  
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -94,7 +101,9 @@ export default function AdminBlogEditor() {
       />
 
       <Input label="Tag" placeholder="Tags (comma separated)" value={tags} onChange={e => setTags(e.target.value)} className="mb-2" />
-      <Input label="Author" placeholder="Author Name" value={author} onChange={e => setAuthor(e.target.value)} className="mb-2" />
+
+      {/* Author is now referenced from user context or authentication, so no manual input */}
+      {/* Markdown Editor */}
 
       <ReactMde
         value={content}
