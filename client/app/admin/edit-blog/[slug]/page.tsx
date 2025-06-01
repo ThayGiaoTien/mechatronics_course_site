@@ -148,7 +148,7 @@ export default function EditBlogPage() {
             
           />
     
-          <Input label = "Tag"placeholder="Tags (comma separated)" value={blog.tags} onChange={e => setTags(e.target.value)} className="mb-2" />
+          <Input label = "Tag"placeholder="Tags (comma separated)" value={tags} onChange={e => setTags(e.target.value)} className="mb-2" />
             
           <ReactMde
             value={content}
