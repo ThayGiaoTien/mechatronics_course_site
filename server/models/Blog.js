@@ -47,6 +47,10 @@ const BlogSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    views: {
+      type: Number,
+      default: randomInt(0, 1000), // Random initial views between 0 and 1000
+    },
     publishedAt: {
       type: Date,
     },

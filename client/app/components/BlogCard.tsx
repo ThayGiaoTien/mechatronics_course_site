@@ -24,6 +24,13 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
           <span key={cat} className="mr-2">#{cat}</span>
         ))}
       </div>
+      <div className="mt-2 text-sm text-gray-500">
+        <span>By {blog?.author || 'Unknown'}</span>
+        <span className="ml-4">{new Date(blog.publishedAt).toLocaleDateString()}</span>
+      </div>
+      <div className="mt-2 text-sm text-gray-500">
+        <span>Views: {blog.views || 0}</span>
+      </div>
       {isAdmin && (
         <div className="flex space-x-2 mt-2">
           <Link href={`/admin/edit-blog/${blog.slug}`}>

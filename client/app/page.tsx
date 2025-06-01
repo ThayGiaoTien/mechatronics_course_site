@@ -77,13 +77,12 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Navbar */}
-      {/* Hero Section */}
+     
       <section
-        className="relative mt-16 h-56 bg-cover bg-center"
+        className="relative h-69 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1581091870623-0d796feb1062?auto=format&fit=crop&w=1350&q=80')",
+            "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBY70Tbvm7asm06CGKtM8TZtBop4aD12jxkQ&s')",
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -91,7 +90,7 @@ export default function HomePage() {
           <div className="text-center text-white">
             <h1 className="text-3xl font-bold">Mechatronics</h1>
             <p className="mt-1 text-lg">
-              Browse our latest blogs, sorted how you like.
+              Tổng hợp các tài liệu hay nhất, mới nhất về ngành cơ-điện tử dành cho cả sinh viên và những người đi làm từ dễ đến khó
             </p>
           </div>
         </div>
@@ -185,8 +184,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <Footer />
+     
     </>
   );
 }

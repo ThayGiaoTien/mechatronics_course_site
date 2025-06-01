@@ -9,5 +9,6 @@ export interface Blog {
     tags: string[];
     author: string;
     isPublished: boolean;
+    views: number;
     publishedAt: string;
   }

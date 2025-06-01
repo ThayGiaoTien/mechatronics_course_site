@@ -27,6 +27,17 @@ export default function BlogListPage() {
   const [loading, setLoading] = useState(true);
  // const [error, setError] = useState<string | null>(null);
 
+  // Pagination & sorting state
+  const [sortOption, setSortOption] = useState<"newest" | "oldest" | "views">(
+    "newest"
+  );
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true); // true if next page exists
+
+  // Number of blogs per page
+  const LIMIT = 10;
+
+  
   const handleRequestDelete = (id:string) => {
     setSelectedBlogId(id);
     setShowModal(true);
@@ -38,23 +49,48 @@ export default function BlogListPage() {
     setIsAdmin(user.isAdmin);
   }, []);
 
+
+  // Fetch blogs and categories on initial load
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/blogs`).then((res) => {
-      const allBlogs = res.data;
-      setBlogs(allBlogs);
+    setLoading(true);
 
-      const allCategories = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.categories || []))) as string[];
-      const allTags = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.tags || []))) as string[];
-      setCategories(allCategories);
-      setTags(allTags);
+    const fetchBlogs = async () => {
+      try {
+        // Build the query string
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE}/blogs`,
+          {
+            params: {
+              sort: sortOption,
+              page,     // 1-based page
+              limit: LIMIT,
+            },
+          }
+        );
+        const allBlogs: Blog[] = res.data;
+        setBlogs(allBlogs);
 
-      // Set default selected category to the first one
-      const pinned = allBlogs.find((b:Blog) => b.tags?.includes('featured'));
-      setFeatured(pinned);
-    });
-    setLoading(false);
-  }, [blogs]);
- 
+        const allCategories = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.categories || []))) as string[];
+        const allTags = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.tags || []))) as string[];
+        setCategories(allCategories);
+        setTags(allTags);
+
+        // Set default selected category to the first one
+        const pinned = allBlogs.find((b:Blog) => b.tags?.includes('featured'));
+        setFeatured(pinned ?? null);
+        setFilteredBlogs(allBlogs);
+        // If we got fewer than LIMIT items, there's no next page
+        setHasMore(allBlogs.length === LIMIT);
+      } catch (err) {
+        console.error("Failed to fetch blogs:", err);
+        setBlogs([]);
+        setHasMore(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, [sortOption, page]);
 
   useEffect(() => {
     let temp = blogs;
@@ -170,7 +206,28 @@ export default function BlogListPage() {
           ))
         )}
       </div>
-    
+      {/* Pagination Controls */}
+      <div className="flex items-center justify-between py-4">
+        <button
+          className="px-4 py-2 rounded bg-gray-200 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={page === 1}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+        >
+          Previous
+        </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            hasMore
+              ? "bg-blue-600 text-white hover:bg-blue-700"
+              : "bg-gray-200 text-gray-500 cursor-not-allowed"
+          }`}
+          disabled={!hasMore}
+          onClick={() => hasMore && setPage((p) => p + 1)}
+        >
+          Next
+        </button>
+      </div>
+
     </div>
   );
 }

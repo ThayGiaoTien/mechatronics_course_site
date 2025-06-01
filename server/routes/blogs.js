@@ -26,12 +26,45 @@ router.post('/', auth, admin, async (req, res) => {
 });
 
 // Get all published blogs
-router.get('/', async (req, res) => {
+// router.get('/', async (req, res) => {
+//   try {
+//     const blogs = await Blog.find({ isPublished: true }).sort({ publishedAt: -1 });
+//     res.json(blogs);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// GET /api/blogs?sort=newest|oldest|views&page=1&limit=10
+router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find({ isPublished: true }).sort({ publishedAt: -1 });
+    const { sort = "newest", page = "1", limit = "10" } = req.query;
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+
+    // Build sort object
+    let sortObj = {};
+    if (sort === "newest") {
+      sortObj = { publishedAt: -1 };
+    } else if (sort === "oldest") {
+      sortObj = { publishedAt: 1 };
+    } else if (sort === "views") {
+      sortObj = { views: -1 };
+    }
+
+    // Skip and limit
+    const skip = (pageNum - 1) * limitNum;
+
+    const blogs = await Blog.find({ isPublished: true })
+      .sort(sortObj)
+      .skip(skip)
+      .limit(limitNum)
+      .lean();
+
     res.json(blogs);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error in GET /api/blogs:", err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
