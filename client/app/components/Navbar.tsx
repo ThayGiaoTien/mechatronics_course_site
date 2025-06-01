@@ -28,10 +28,10 @@ export default function Navbar() {
     };
 
     return (
-        <nav className='flex items-center justify-between p-3 bg-blue-600 opacity-90 text-white'>
+        <nav className='flex items-center p-4 bg-blue-600 opacity-90 text-white  md:justify-between'>
             <div className='space-x-3 '>
             <Link href='/'> 
-                <span className='font-bold  text-2xl cursor-pointer'> Trang chủ </span>
+                <span className='font-bold bg-blue-500 text-2xl cursor-pointer'> Trang chủ </span>
             </Link>
             <Link href='/courses'> 
                 <span className='font-italic  text-xl cursor-pointer'>Khóa học</span>
@@ -42,9 +42,8 @@ export default function Navbar() {
             <Link href='/projects'> 
                 <span className='font-italic  text-xl cursor-pointer'>Dự án</span>
             </Link>
-            <Link href='/about'> 
-                <span className='font-italic  text-xl cursor-pointer'>Liên hệ</span>
-            </Link>
+    
+
             </div>
             <div className='space-x-4 inline-flex '>
                 

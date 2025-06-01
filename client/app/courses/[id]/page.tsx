@@ -49,7 +49,7 @@ export default function CourseDetail() {
   };
 
   if (error) return <p className="text-red-500">{error}</p>;
-  if (!course) return <p>Loading...</p>;
+  if (!course) return <p>Đang tải khóa học...</p>;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -78,7 +78,7 @@ export default function CourseDetail() {
                 </div>
             ) : (
               <div className="mt-2 text-red-500 italic">
-                🔒 You need to purchase this course to view this video.
+                🔒 Video chứa nội dung cần trả tiền. Mở khóa để xem!
               </div>
             )}
           </div>

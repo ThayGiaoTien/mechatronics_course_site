@@ -8,7 +8,7 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
     <div className="rounded-lg border p-4 shadow-sm hover:shadow-md transition">
       {blog.slug &&
       <Link href={`/blogs/${blog.slug}`}>
-        <h2 className="text-xl font-semibold hover:underline">{blog.title}</h2>
+        <h2 className="text-xl text-gray-900 font-semibold hover:underline">{blog.title}</h2>
       </Link>
 }
       <p className="text-gray-600 mt-1">{blog.description}</p>

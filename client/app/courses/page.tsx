@@ -71,7 +71,7 @@ export default function Courses() {
     }
   };
 
-  if (loading) return <p>Loading courses...</p>;
+  if (loading) return <p>Đang tải khóa học...</p>;
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
@@ -89,10 +89,10 @@ export default function Courses() {
       />
       {/* ✅ Courses list */}
     
-      <h1 className="text-2xl font-bold mb-4">Courses</h1>
+      <h1 className="text-2xl font-bold mb-4">Các khóa học</h1>
       {isAdmin && (
         <Link href="/admin/create-course">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Create New Course</button>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Tao khóa học mới</button>
         </Link>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
