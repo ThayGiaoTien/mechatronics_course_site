@@ -1,5 +1,8 @@
 // models/Blog.ts
 const mongoose = require('mongoose');
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const BlogSchema = new mongoose.Schema(
   {
