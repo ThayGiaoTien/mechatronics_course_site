@@ -26,7 +26,7 @@ export default function LoginPage(){
             localStorage.setItem('token', res.data.token);
             setUser(user);
             console.log("Login succesfully!");
-            router.push(`${process.env.NEXT_PUBLIC_API_BASE}/`); // Automatically redirect to home page
+            router.push('/'); // Automatically redirect to home page
         } catch (err: any) {
             console.log("Login failed!");
             setError(err.response?.data?.message || 'Login failed');
