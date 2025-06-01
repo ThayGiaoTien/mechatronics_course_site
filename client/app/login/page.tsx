@@ -33,7 +33,7 @@ export default function LoginPage(){
         }
     };
     return (
-        <main className = "p-6">
+        <main className = "mt-30 p-6">
             <h1 className = "text-2xl font-bold mb-4">Login</h1>
             {error && <p className = "text-red-500 mb-4"> error </p>}
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">

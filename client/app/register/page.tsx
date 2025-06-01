@@ -25,7 +25,7 @@ export default function RegisterPage() {
     };
 
     return (
-        <main className="p-6">
+        <main className="p-6 mt-30">
             <h1 className="text-2xl font-bold mb-4">Register</h1>
             {error && <p className="text-red-500 mb-4">{error}</p>}
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">

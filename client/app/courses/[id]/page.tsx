@@ -52,7 +52,7 @@ export default function CourseDetail() {
   if (!course) return <p>Đang tải khóa học...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto mt-30 p-6">
       <h1 className="text-2xl font-bold mb-2">{course.title}</h1>
       <p className="mb-4 text-gray-600">{course.description}</p>
 

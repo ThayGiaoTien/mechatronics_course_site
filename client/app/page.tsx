@@ -78,8 +78,8 @@ export default function HomePage() {
   return (
     <>
      
-      <section
-        className="relative h-69 bg-cover bg-center"
+      {/* <section
+        className="relative mt-20 h-69 bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBY70Tbvm7asm06CGKtM8TZtBop4aD12jxkQ&s')",
@@ -94,10 +94,10 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Main Content */}
-      <main className="flex grow flex-col bg-gray-100 pt-6">
+      <main className="max-w-6xl mx-auto mt-30 flex grow flex-col bg-gray-100 pt-6">
         <div className="max-w-5xl mx-auto px-4">
           {/* Sort Bar */}
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">

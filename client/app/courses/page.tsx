@@ -75,7 +75,7 @@ export default function Courses() {
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 mt-30 max-w-4xl mx-auto">
       {/* ✅ Delete confirmation modal */}
       <DeleteConfitmModal
         open={showModal}

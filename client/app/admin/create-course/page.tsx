@@ -50,7 +50,7 @@ export default function CreateCourse() {
   };
 
   return (
-    <main className="max-w-4xl mx-auto p-6 space-y-6">
+    <main className="max-w-4xl mt-30 mx-auto p-6 space-y-6">
       <h1 className="text-2xl font-bold mb-4">Create New Course</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

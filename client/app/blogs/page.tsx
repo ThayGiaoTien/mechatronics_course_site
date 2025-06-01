@@ -142,7 +142,7 @@ export default function BlogListPage() {
   if (loading) return <p>Loading Blogs...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
+    <div className="max-w-5xl mx-auto mt-30 px-4 py-6">
       {/* ✅ Delete confirmation modal */}
       <DeleteConfirModal
         open={showModal}

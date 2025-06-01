@@ -53,7 +53,7 @@ export default function BlogDetailPage() {
   if (!blog) return <div className="p-4 text-red-500">Blog not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto mt-30 p-6">
       {blog.thumbnail && (
         <img
           src={blog.thumbnail}

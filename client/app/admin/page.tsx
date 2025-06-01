@@ -56,7 +56,7 @@ export default function AdminDashBoard(){
         );
     }   
     return (
-        <main className="p-6">
+        <main className="p-6 mt-30">
             <h1 className="text-2xl font-bold mb-4">Admin Dash Board</h1>
             <p className="mb-4">Welcome BOSS, {userData.userName}</p>
             <p className="mb-4">Your email is: {userData.userEmail}</p>
