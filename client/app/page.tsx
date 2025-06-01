@@ -88,9 +88,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
-            <h1 className="text-3xl font-bold">Mechatronics</h1>
+            <h1 className="text-3xl font-bold">tailieucodientu.com.vn</h1>
             <p className="mt-1 text-lg">
-              Tổng hợp các tài liệu hay nhất, mới nhất về ngành cơ-điện tử dành cho cả sinh viên và những người đi làm từ dễ đến khó
+              Tổng hợp các tài liệu hay nhất, mới nhất về ngành cơ-điện tử dành cho cả sinh viên và những người đi làm từ cơ bản đến nâng cao
             </p>
           </div>
         </div>

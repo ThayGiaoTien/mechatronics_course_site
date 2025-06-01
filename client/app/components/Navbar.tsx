@@ -28,8 +28,8 @@ export default function Navbar() {
     };
 
     return (
-        <nav className='flex items-center justify-between p-4 bg-blue-600 opacity-90 text-white'>
-            <div className='space-x-4 '>
+        <nav className='flex items-center justify-between p-3 bg-blue-600 opacity-90 text-white'>
+            <div className='space-x-3 '>
             <Link href='/'> 
                 <span className='font-bold  text-2xl cursor-pointer'> Trang chủ </span>
             </Link>
