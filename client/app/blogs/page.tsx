@@ -168,13 +168,12 @@ export default function BlogListPage() {
         className="w-full mb-4 px-3 py-2 border rounded shadow-sm"
       />
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center ">
         <CategoryFilter
           categories={categories}
           selected={selectedCategory}
           onSelect={setSelectedCategory}
         />
-
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as 'latest' | 'oldest')}
@@ -189,14 +188,12 @@ export default function BlogListPage() {
         selected={selectedTag}
         onSelect={setSelectedTag}
       />
-
       {featured && (
         <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 mb-6">
           <p className="text-sm text-yellow-800 font-semibold">📌 Featured Blog</p>
           <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete}/>
         </div>
       )}
-    
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filteredBlogs.length === 0 ? (
           <p className="text-gray-500">No blogs found.</p>
