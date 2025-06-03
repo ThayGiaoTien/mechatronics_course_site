@@ -9,7 +9,7 @@ connectDB();
 
 // Allow your frontend origin
 app.use(cors({
-    origin: 'https://tailieucodientu.com',
+    origin: ['https://tailieucodientu.com', 'www.tailieucodientu.com'], // Add your frontend URL here
     methods: ['GET','POST','PUT','DELETE','OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type','Authorization']
