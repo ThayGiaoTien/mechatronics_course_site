@@ -4,10 +4,20 @@ import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 
 export const metadata = {
-  title: "Cơ điện tử",
-  keywords: ['Cơ điện tử', 'Metrachonics', 'Mạch điện', 'Điện tử', 'Thiết k]ế cơ khí', 'Tự động hóa', 'Lập trình nhúng', 'Arduino', 'Raspberry Pi'],
-  authors: [{ name: ['Teacher Forwarard', 'Tienalex'], url: 'https://mechatronics-course-site.vercel.app/' }],
-  description: 'Là một trang web tổng hợp kiến thức về lĩnh vực cơ - điện tử (Metrachonics). Từ các kiến thức cơ bản về mạch điện, điện tử, thiết kế sản phẩm cơ khí đến mô phỏng lắp ráp, lập trình điều khiển tự động hóa, lập trình nhúng... !'
+  title: "Tài liệu Cơ - Điện tử",
+  description: "Tổng hợp kiến thức về cơ - điện tử (Metrachonics), từ mạch điện, điện tử, thiết kế cơ khí đến lập trình nhúng và tự động hóa.",
+  openGraph: {
+    title: "Tài liệu Cơ - Điện tử",
+    description: "Tổng hợp kiến thức về cơ - điện tử (Metrachonics), từ mạch điện, điện tử, thiết kế cơ khí đến lập trình nhúng và tự động hóa.",
+    url: "https://tailieucodientu.com",
+    siteName: "Tài liệu Cơ - Điện tử",
+    type: "website",
+  },
+  keywords: ['Cơ điện tử', 'Metrachonics', 'Mạch điện', 'Điện tử', 'Thiết kế cơ khí', 'Tự động hóa', 'Lập trình nhúng', 'Arduino', 'Raspberry Pi'],
+  authors: [{ name: ['Teacher Forwarard', 'Tienalex'], url: 'https://tailieucodientu.com/' }],
+  creator: 'Tienalex',
+
+  
 };
 
 export default function RootLayout({

@@ -9,7 +9,7 @@ connectDB();
 
 // Allow your frontend origin
 app.use(cors({
-    origin: 'https://mechatronics-course-site.vercel.app',
+    origin: 'https://tailieucodientu.com',
     methods: ['GET','POST','PUT','DELETE','OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type','Authorization']

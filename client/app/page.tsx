@@ -78,7 +78,7 @@ export default function HomePage() {
   return (
     <>
      
-      {/* <section
+      <section
         className="relative mt-20 h-69 bg-cover bg-center"
         style={{
           backgroundImage:
@@ -88,13 +88,12 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
-            <h1 className="text-4xl font-bold">tailieucodientu.com.vn</h1>
             <p className="mt-1 text-2xl font-semibold">
-              Tổng hợp các tài liệu hay nhất, mới nhất về  lĩnh vực cơ - điện tử  (mechatronics) từ cơ bản đến nâng cao
+              Tổng hợp các tài liệu hay nhất về  lĩnh vực cơ - điện tử  (mechatronics) từ cơ bản đến nâng cao.
             </p>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto mt-30 flex grow flex-col bg-gray-100 pt-6">

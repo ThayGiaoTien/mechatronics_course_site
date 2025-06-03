@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/typography": "github:tailwindcss/typography",
     "@uiw/react-markdown-preview": "^5.1.4",
     "@uiw/react-md-editor": "^4.0.6",
     "axios": "^1.8.4",

@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className="flex items-center justify-center bg-blue-100 py-2">
           <Link href="/">
             <span className="text-2xl font-bold text-blue-600 cursor-pointer">
-              tailieucodientu.com.vn
+              tailieucodientu.com
             </span>
           </Link>
         </div>
