@@ -141,7 +141,7 @@ export default function EditBlogPage() {
           <Input label = "Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
     
           <MultiSelect
-            options={["Electronics", "Microcontroller", "Programming", "Mechanical","Embedded","Electrical"]}
+            options={["Electronics", "Mạch DC", "Mạch AC", "Tụ điện","Cuộn cảm","Điện trở"]}
             value={categories}
             onChange={ setCategories}
             label='Categories'
