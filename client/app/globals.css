@@ -50,17 +50,20 @@ body {
 .prose h1 {
   font-size: 2rem;
   line-height: 2rem;
-  margin: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 .prose h2 {
   font-size: 1.5rem;
   line-height: 1.5rem;
-  margin: 1.5 rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 .prose h3 {
   font-size: 1.25rem;
   line-height: 1.25rem;
-  margin: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 
