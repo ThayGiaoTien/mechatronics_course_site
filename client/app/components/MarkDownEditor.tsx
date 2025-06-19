@@ -5,6 +5,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -18,11 +20,12 @@ export default function MarkdownRenderer({ content }: Props) {
     <article className="prose  lg:prose-xl dark:prose-invert max-w-none">
       <ReactMarkdown
         children={content}
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[
           rehypeRaw,
           rehypeHighlight,
           rehypeSlug,
+
           [
             rehypeAutolinkHeadings,
             {
@@ -32,6 +35,7 @@ export default function MarkdownRenderer({ content }: Props) {
               },
             },
           ],
+          rehypeKatex
         ]}
       />
     </article>
