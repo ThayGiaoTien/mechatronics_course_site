@@ -76,6 +76,14 @@ export default function EditBlogPage() {
         fetchBlog();
         
     }, []);
+
+     useEffect(() => {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      user? setAuthor(user.name) : setAuthor(''); // Set author from user context
+    }, []);
+  
+
     
     
     const handleSubmit = async (e: React.FormEvent) => {

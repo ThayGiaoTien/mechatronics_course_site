@@ -94,7 +94,7 @@ export default function AdminBlogEditor() {
       <Input label="Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
 
       <MultiSelect
-        options={["Electronics", "Mạch DC", "Tụ điện", "Cuộn cảm", "Điện trở", "Mạch AC"]}
+        options={["Mạch khuếch đại", "Mạch DC", "Điện trường", "Từ trường", "Mạch Analog", "Mạch AC", "Mạch Digital", "Máy điện", "Điện tử công suất", "Cung cấp điện", "Lý thuyết điều khiển"]}
         value={categories}
         onChange={setCategories}
         label="Categories"

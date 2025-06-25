@@ -43,8 +43,8 @@ const BlogSchema = new mongoose.Schema(
       },
     ],
     author: {
-      type: String,
-      ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Assuming you have a User model
     },
     isPublished: {
       type: Boolean,

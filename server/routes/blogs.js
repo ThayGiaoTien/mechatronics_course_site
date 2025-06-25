@@ -11,7 +11,7 @@ router.post('/', auth, admin, async (req, res) => {
   try {
     const blog = new Blog(req.body);
     blog.slug = blog.title.toLowerCase().replace(/\s+/g, '-');
-    blog.author = req.user._id;
+    // blog.author = req.user._id;
     const saved = await blog.save();
     if (req.body.isPublished) {
       saved.publishedAt = new Date();

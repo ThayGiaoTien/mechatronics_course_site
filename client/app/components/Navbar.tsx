@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import logo from "./logo.png"; // Adjust the path as needed
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,15 +30,31 @@ export default function Navbar() {
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
         {/* Above: Logo */}
-        <div className="flex items-center justify-center bg-blue-100 py-2">
+        {/* <div className="flex items-center justify-center bg-blue-100 py-2">
           <Link href="/">
             <span className="text-2xl font-bold text-blue-600 cursor-pointer">
               tailieucodientu.com
             </span>
           </Link>
-        </div>
+        </div> */}
         
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3  text-gray-1000 text-2xl font-italic ">
+      <div className="max-w-auto bg-slate-900 flex items-center justify-center flex-row space-x-6">
+        <Image
+          src={logo}
+          alt="tailieucodientu.com logo"
+          className="h-16 w-16"
+          width={100}
+          height={100}
+          style={{  borderRadius: "50%" }}
+          
+        />
+        {/* Slogan */}
+        <h1 className="text-2xl font-semibold  text-white m-0">
+          Làm Chủ Công Nghệ 4.0
+        </h1>
+      </div>
+        
+      <div className="max-w-auto mx-auto  bg-slate-700 flex items-center justify-between px-4 py-3  text-white text-2xl font-italic ">
 
         {/* Center / Desktop Nav Links */}
         <nav className="hidden md:flex space-x-6">
@@ -47,7 +65,7 @@ export default function Navbar() {
               className={`${
                 pathname === href
                   ? "text-blue-600 font-semibold"
-                  : "text-gray-700 hover:text-blue-600"
+                  : "text-white-700 hover:text-blue-600"
               }`}
             >
               {label}
@@ -57,18 +75,18 @@ export default function Navbar() {
         
 
         {/* Right: User/Login */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center text-white-700  space-x-4">
           {user ? (
             <>
                 <Link
                 href="/dashboard"
-                className="text-gray-700 hover:text-blue-600"
+                className="text-white-700  hover:text-blue-600"
                 >
                 {user.name}
                 </Link>
                 <Link 
                 href="/"
-                className="text-gray-700 hover:text-blue-600"
+                className="text-white-700  hover:text-blue-600"
                 onClick={() => {
                   // Clear user data on logout
                   localStorage.removeItem("user");
@@ -81,10 +99,10 @@ export default function Navbar() {
             
           ) : (
             <>
-                <Link href="/login" className="text-xl text-gray-600 hover:text-blue-600">
+                <Link href="/login" className="text-xl text-white-700  hover:text-blue-600">
                 Đăng nhập
                 </Link>
-                <Link href="/register" className="text-xl text-gray-600 hover:text-blue-600">
+                <Link href="/register" className="text-xl ttext-white-700  hover:text-blue-600">
                 Đăng ký
                 </Link>
             </>
@@ -99,9 +117,9 @@ export default function Navbar() {
           onClick={() => setMobileMenuOpen((open) => !open)}
         >
           {mobileMenuOpen ? (
-            <X className="w-6 h-6 text-gray-800" />
+            <X className="w-9 h-9 text-white-900" />
           ) : (
-            <Menu className="w-6 h-6 text-gray-800" />
+            <Menu className="w-9 h-9 text-white-900" />
           )}
         </button>
       </div>

@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
             },
         };
         const token= jwt.sign(payload, process.env.JWT_SECRET ||'secret',{
-            expiresIn: 3600,
+            expiresIn: 7200,
         });
         res.json({ token });
         // jwt.sign(payload, 'secret', {
