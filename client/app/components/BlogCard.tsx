@@ -9,7 +9,7 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
     return <div className="text-gray-500">No blog data available</div>;
   }
   if (blog.description && blog.description.length > maxDescriptionLength) {
-    blog.description = blog.description.substring(0, maxDescriptionLength) + '...';
+    blog.description = blog.description.substring(0, maxDescriptionLength) + ' >>>Read More';
   }
   
   return (
