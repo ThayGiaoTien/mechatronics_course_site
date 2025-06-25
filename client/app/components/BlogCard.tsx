@@ -9,9 +9,9 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
     return <div className="text-gray-500">No blog data available</div>;
   }
   if (blog.description && blog.description.length > maxDescriptionLength) {
-    blog.description = blog.description.substring(0, maxDescriptionLength) + ' >>>Read More';
+    blog.description = blog.description.substring(0, maxDescriptionLength) + '...';
   }
-  
+  s
   return (
     <div className="rounded-lg border p-4 shadow-sm hover:shadow-md transition">
       {blog.slug &&
