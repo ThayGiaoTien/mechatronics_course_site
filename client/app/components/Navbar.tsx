@@ -37,7 +37,10 @@ export default function Navbar() {
             </span>
           </Link>
         </div> */}
-        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2664684964953851"
+     crossOrigin="anonymous">
+
+        </script>
       <div className="max-w-auto bg-slate-900 flex items-center justify-center flex-row space-x-6">
         <Image
           src={logo}
