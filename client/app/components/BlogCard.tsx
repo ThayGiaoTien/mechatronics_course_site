@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { BlogCardProps } from '@/types/blog_card';
 
 export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardProps) {
-  const maxDescriptionLength = 150;
+  const maxDescriptionLength = 120;
   if (!blog) {
     return <div className="text-gray-500">No blog data available</div>;
   }
   if (blog.description && blog.description.length > maxDescriptionLength) {
     blog.description = blog.description.substring(0, maxDescriptionLength) + '...';
   }
-  s
+  
   return (
     <div className="rounded-lg border p-4 shadow-sm hover:shadow-md transition">
       {blog.slug &&
@@ -19,7 +19,7 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
         <h2 className="text-xl text-gray-900 font-semibold hover:underline">{blog.title}</h2>
       </Link>
 }
-      <p className="text-gray-600 mt-1">{blog.description}</p>
+      <p className="text-gray-800 mt-1">{blog.description}</p>
       {blog.thumbnail && (
         <img
           src={blog.thumbnail}
