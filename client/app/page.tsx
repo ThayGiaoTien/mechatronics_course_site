@@ -97,7 +97,7 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="max-w-auto mx-auto mt-30 flex grow flex-col bg-gray-100 pt-6">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4">
           {/* Sort Bar */}
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
             <div className="flex gap-2">
