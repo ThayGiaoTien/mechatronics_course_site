@@ -38,7 +38,7 @@ export default function BlogCard({ blog, isAdmin, onRequestDelete }: BlogCardPro
         ))}
       </div>
       <div className="mt-2 text-sm text-gray-500">
-        <span>By {blog.author || 'Unknown'}</span>
+        <span>By {blog?.author?.name  || 'Unknown'}</span>
         <span className="ml-4">{new Date(blog.publishedAt).toLocaleDateString()}</span>
       </div>
       <div className="mt-2 text-sm text-gray-500">

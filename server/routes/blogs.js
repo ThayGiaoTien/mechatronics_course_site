@@ -8,39 +8,35 @@ const router = express.Router();
 
 // Create a blog post (admin only)
 router.post('/', auth, admin, async (req, res) => {
-  try {
-    const {
-      title,
-      description,
-      content,
-      thumbnail,
-      categories,
-      tags,
-      author, 
-      isPublished,
-      } = req.body;
+  try{
+    const blog = new Blog(req.body);
+    blog.slug = blog.title.toLowerCase().replace(/\s+/g, '-');
+    // check if slug already exists
+    const existingBlog = await Blog.findOne({ slug: blog.slug });
+    if (existingBlog) {
+      return res.status(400).json({ error: 'Blog with this slug already exists'
+      });
+    }
+    // blog.author = req.user._id;
+    blog.populate('author', 'name'); // Assuming you want to populate author details
+    const saved = await blog.save();
 
-    // Use req.user.id from the auth middleware
-    
-    const blog = new Blog({
-      title,
-      description,
-      slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), // Generate slug from title
-      content,
-      thumbnail,
-      categories,
-      tags,
-      author,
-      isPublished,
-      publishedAt: isPublished ? new Date() : null, // Set publishedAt if isPublished is true
-    });
+    if (req.body.isPublished) {
 
-    await blog.save();
-    await blog.populate('author', 'name'); 
-    res.status(201).json(blog);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to create blog' });
+      saved.publishedAt = new Date();
+     
+      await saved.save();
+    }
+    console.log('Blog created successfully:', saved);
+    res.status(201).json({ message: 'Blog created successfully'});
   }
+  catch (err) {
+    console.error('Error creating blog:', err);
+    return res.status(500).json({ error: 'Failed to create blog' });
+  }
+  
+ 
+   
 });
 
 // Get all published blogs

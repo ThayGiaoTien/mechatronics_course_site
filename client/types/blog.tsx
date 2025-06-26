@@ -1,3 +1,8 @@
+interface Author{
+  _id: string;
+  name: string;
+  
+}
 export interface Blog {
     _id: string;
     title: string;
@@ -7,7 +12,7 @@ export interface Blog {
     thumbnail?: string;
     categories: string[];
     tags: string[];
-    author: string;
+    author: Author;
     isPublished: boolean;
     views: number;
     publishedAt: string;

@@ -23,7 +23,7 @@ export default function AdminBlogEditor() {
   const [thumbnail, setThumbnail] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string>('');
-  const [author, setAuthor] = useState<string>(''); // Assuming you have a way to get the author
+  const [author, setAuthor] = useState<any>(''); // Assuming you have a way to get the author
   const [content, setContent] = useState('');
  
   const [isPublished, setIsPublished] = useState(false);
@@ -46,12 +46,7 @@ export default function AdminBlogEditor() {
         const slugifiedTitle = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
         setSlug(slugifiedTitle);
       }
-      //Check if slug already exists
-      const existingSlug = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${slug}`);
-      if (existingSlug.data.exists) {
-        alert('Slug already exists. Please choose a different one.');
-        return;
-      }
+      
       // Create the blog post 
       await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/blogs`, {
         title,
@@ -67,6 +62,7 @@ export default function AdminBlogEditor() {
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
+          
         },
       });
       router.push('/blogs');
@@ -82,6 +78,7 @@ export default function AdminBlogEditor() {
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setAuthor(userData._id); // Use name or email as auth
+      console.log('Author set from local storage:', userData._id);
     }
   }, []);
 

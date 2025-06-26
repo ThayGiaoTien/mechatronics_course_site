@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import clsx from 'clsx';
+
 
 import BlogCard from '../components/BlogCard';
 import CategoryFilter from '../components/CategoryFilter';
@@ -90,7 +90,7 @@ export default function BlogListPage() {
       }
     };
     fetchBlogs();
-  }, [sortOption, page]);
+  }, [sortOption, page, selectedBlogId]);
 
   useEffect(() => {
     let temp = blogs;
@@ -134,6 +134,8 @@ export default function BlogListPage() {
       setFilteredBlogs(filteredBlogs.filter((blog) => blog.slug !== slug));
       setShowModal(false);
       alert('Blog deleted successfully');
+      //refresh the page or update state as needed
+      setSelectedBlogId(null);
     } catch (err: any) {
       console.error('Delete error:', err);
       alert('Failed to delete blog.');

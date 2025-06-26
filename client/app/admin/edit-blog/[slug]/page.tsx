@@ -79,7 +79,7 @@ export default function EditBlogPage() {
      useEffect(() => {
       const token = localStorage.getItem('token');
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      user? setAuthor(user.name) : setAuthor(''); // Set author from user context
+      user? setAuthor(user._id) : setAuthor(''); // Set author from user context
     }, []);
   
 
@@ -112,6 +112,7 @@ export default function EditBlogPage() {
               thumbnail,
               categories,
               tags: tags.split(',').map(t => t.trim()),
+              author,
               isPublished,
           }, {
               headers: {
