@@ -16,6 +16,7 @@ router.post('/', auth, admin, async (req, res) => {
       thumbnail,
       categories,
       tags,
+      author, 
       isPublished,
       } = req.body;
 
@@ -29,7 +30,7 @@ router.post('/', auth, admin, async (req, res) => {
       thumbnail,
       categories,
       tags,
-      author: req.user.id, // <-- use the authenticated user's id
+      author,
       isPublished,
       publishedAt: isPublished ? new Date() : null, // Set publishedAt if isPublished is true
     });

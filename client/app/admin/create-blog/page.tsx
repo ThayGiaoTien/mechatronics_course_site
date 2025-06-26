@@ -17,13 +17,13 @@ import * as Showdown from 'showdown';
 
 export default function AdminBlogEditor() {
   const router = useRouter();
-  const [user, setUser] = useState('');
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string>('');
+  const [author, setAuthor] = useState<string>(''); // Assuming you have a way to get the author
   const [content, setContent] = useState('');
  
   const [isPublished, setIsPublished] = useState(false);
@@ -61,6 +61,7 @@ export default function AdminBlogEditor() {
         thumbnail,
         categories,
         tags: tags.split(',').map(t => t.trim()),
+        author,
         isPublished
        
       }, {
@@ -75,6 +76,14 @@ export default function AdminBlogEditor() {
     }
   };
 
+  // Get authoer from user context or local storage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setAuthor(userData._id); // Use name or email as auth
+    }
+  }, []);
 
   return (
     <div className="max-w-4xl mt-30 mx-auto p-4">
@@ -95,6 +104,7 @@ export default function AdminBlogEditor() {
       <Input label="Tag" placeholder="Tags (comma separated)" value={tags} onChange={e => setTags(e.target.value)} className="mb-2" />
 
       {/* Author is now referenced from user context or authentication, so no manual input */}
+      {/* <Input label="Author" placeholder="Author name" value={author} onChange={e => setAuthor(e.target.value)} className="mb-2" /> */}
       {/* Markdown Editor */}
 
       <ReactMde
