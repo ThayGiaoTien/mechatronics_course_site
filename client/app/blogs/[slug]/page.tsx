@@ -63,6 +63,12 @@ export default function BlogDetailPage() {
       )}
       <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
       <p className="text-gray-500 mb-4">{blog.description}</p>
+      <div className="text-sm text-gray-400 mb-4">
+        <span>By {blog.author || 'Unknown Author'}</span>
+        <span className="mx-2">|</span>
+        <span>{new Date(blog.publishedAt).toLocaleDateString()}</span>
+        
+      </div>
       <div className="flex gap-2 mb-6 flex-wrap">
         {blog.categories.map((cat: string) => (
           <span

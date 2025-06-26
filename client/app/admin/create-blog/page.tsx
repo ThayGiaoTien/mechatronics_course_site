@@ -25,8 +25,7 @@ export default function AdminBlogEditor() {
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string>('');
   const [content, setContent] = useState('');
-  const [author, setAuthor] = useState(''); // Assuming you have a way to get the author
-
+ 
   const [isPublished, setIsPublished] = useState(false);
 
   const converter = new Showdown.Converter();
@@ -62,8 +61,7 @@ export default function AdminBlogEditor() {
         thumbnail,
         categories,
         tags: tags.split(',').map(t => t.trim()),
-        author,
-        isPublished,
+        isPublished
        
       }, {
         headers: {
@@ -77,12 +75,6 @@ export default function AdminBlogEditor() {
     }
   };
 
-  useEffect(() => {
-      const token = localStorage.getItem('token');
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      user? setAuthor(user.name) : setAuthor(''); // Set author from user context
-    }, []);
-  
 
   return (
     <div className="max-w-4xl mt-30 mx-auto p-4">

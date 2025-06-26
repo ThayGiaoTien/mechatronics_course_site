@@ -63,7 +63,6 @@ export default function EditBlogPage() {
                 setCategories(blogData.categories);
                 setTags(blogData.tags.join(', '));
                 setContent(blogData.content);
-                setAuthor(blogData.author);
                 setIsPublished(blogData.isPublished);
                 setLoading(false);
                 setId(blogData._id);
@@ -109,12 +108,10 @@ export default function EditBlogPage() {
           await axios.put(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${id}`, {
               title,
               description,
-              slug,
               content,
               thumbnail,
               categories,
               tags: tags.split(',').map(t => t.trim()),
-              author,
               isPublished,
           }, {
               headers: {
@@ -149,7 +146,7 @@ export default function EditBlogPage() {
           <Input label = "Thumbnail" placeholder="Thumbnail URL (CDN image)" value={thumbnail} onChange={e => setThumbnail(e.target.value)} className="mb-2" />
     
           <MultiSelect
-            options={["Electronics", "Mạch DC", "Mạch AC", "Tụ điện","Cuộn cảm","Điện trở"]}
+            options={["Mạch khuếch đại", "Mạch DC", "Điện trường", "Từ trường", "Mạch Analog", "Mạch AC", "Mạch Digital", "Máy điện", "Điện tử công suất", "Cung cấp điện", "Lý thuyết điều khiển"]}
             value={categories}
             onChange={ setCategories}
             label='Categories'

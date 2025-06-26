@@ -9,19 +9,36 @@ const router = express.Router();
 // Create a blog post (admin only)
 router.post('/', auth, admin, async (req, res) => {
   try {
-    const blog = new Blog(req.body);
-    blog.slug = blog.title.toLowerCase().replace(/\s+/g, '-');
-    // blog.author = req.user._id;
-    const saved = await blog.save();
-    if (req.body.isPublished) {
-      saved.publishedAt = new Date();
-      await saved.save();
-    }
-    console.log('Blog created:', saved);
+    const {
+      title,
+      description,
+      content,
+      thumbnail,
+      categories,
+      tags,
+      isPublished,
+      } = req.body;
+
+    // Use req.user.id from the auth middleware
     
-    res.status(201).json(saved);
+    const blog = new Blog({
+      title,
+      description,
+      slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), // Generate slug from title
+      content,
+      thumbnail,
+      categories,
+      tags,
+      author: req.user.id, // <-- use the authenticated user's id
+      isPublished,
+      publishedAt: isPublished ? new Date() : null, // Set publishedAt if isPublished is true
+    });
+
+    await blog.save();
+    await blog.populate('author', 'name'); 
+    res.status(201).json(blog);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Failed to create blog' });
   }
 });
 
