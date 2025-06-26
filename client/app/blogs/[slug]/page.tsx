@@ -64,7 +64,7 @@ export default function BlogDetailPage() {
       <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
       <p className="text-gray-500 mb-4">{blog.description}</p>
       <div className="text-sm text-gray-400 mb-4">
-        <span>By {blog?.author._id || 'Unknown Author'}</span>
+        <span>By {blog?.author?._id || 'Unknown Author'}</span>
         <span className="mx-2">|</span>
         <span>{new Date(blog.publishedAt).toLocaleDateString()}</span>
         
