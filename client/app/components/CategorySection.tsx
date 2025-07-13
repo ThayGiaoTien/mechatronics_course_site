@@ -1,32 +1,50 @@
-'use client';
+
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Tag } from "lucide-react"; // example icon
+import axios from "axios";
 
 interface CategorySectionProps {
   categories: string[];
 }
 
 export default function CategorySection({ categories }: CategorySectionProps) {
-  const router = useRouter();
-  const params = useSearchParams();
-  const [active, setActive] = useState<string | null>(params.get("category"));
+   const router = useRouter();
+  const [loadingCat, setLoadingCat] = useState<string | null>(null);
 
-  useEffect(() => {
-    setActive(params.get("category"));
-  }, [params]);
+  const handleClick = async (cat: string) => {
+    setLoadingCat(cat);
+    try {
+      // Fetch the newest single blog in this category
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE}/blogs`,
+        {
+          params: {
+            categories: cat,
+            sort: 'newest',
+            page: 1,
+            limit: 1,
+          },
+        }
+      );
 
-  const handleClick = (cat: string) => {
-    const href =
-      active === cat
-        ? "/?categories=" // clear filter
-        : `/?categories=${encodeURIComponent(cat)}`;
-    setActive(active === cat ? null : cat);
-    router.push(href);
+      const first = res.data[0];
+      if (first && first.slug) {
+        router.push(`/blogs/${first.slug}`);
+      } else {
+        alert('Không có bài viết nào trong danh mục này.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Lỗi khi lấy bài viết đầu tiên.');
+    } finally {
+      setLoadingCat(null);
+    }
   };
+
 
   return (
     <div className="w-3/5 mx-auto px-4 mb-8">
@@ -40,11 +58,7 @@ export default function CategorySection({ categories }: CategorySectionProps) {
                 flex flex-col bg-blue-200 items-center justify-center p-4
                 rounded-lg shadow-sm hover:shadow-md transition
                 w-full h-16
-                ${
-                  active === cat
-                    ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-800"
-                }
+                ${loadingCat === cat ? 'opacity-50 cursor-not-allowed' : ''}
               `}
             >
               {/* <Tag className="w-6 h-6 mb-2" /> */}

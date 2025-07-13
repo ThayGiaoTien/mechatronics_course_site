@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import Link from 'next/link';
-
 
 
 import BlogCard from '../components/BlogCard';
@@ -27,14 +27,7 @@ export default function BlogListPage() {
   const [showModal, setShowModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [categoryFromUrl, setCategoryFromUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const param = new URLSearchParams(window.location.search).get('categories');
-      setCategoryFromUrl(param);
-    }
-  }, []);
+  
  // const [error, setError] = useState<string | null>(null);
 
   // Pagination & sorting state
@@ -103,23 +96,15 @@ export default function BlogListPage() {
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/categories`);
         setCategories(res.data);
-        if (categoryFromUrl) {
-          setSelectedCategory(categoryFromUrl);
-        }
+      
       } catch (err) {
         console.error("Failed to fetch categories:", err);
         setCategories([]);
       }
     }
     fetchCategories();
-  }, [categoryFromUrl]);
+  }, []);
 
-  // // Fetch categories from URL
-  // useEffect(() => {
-  //   if (categoryFromUrl) {
-  //     setSelectedCategory(categoryFromUrl);
-  //   }
-  // }, [categoryFromUrl]);
   
   useEffect(() => {
     let temp = blogs;
