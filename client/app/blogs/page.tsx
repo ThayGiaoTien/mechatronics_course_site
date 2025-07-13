@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
@@ -11,7 +10,7 @@ import DeleteConfirModal from '../components/DeleteConfirmModal';
 import { Blog } from '@/types/blog';
 import CategorySection from '../components/CategorySection';
 
-function BlogListPageInner() {
+function BlogListPageInner({ searchParams }: { searchParams: URLSearchParams }) {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -25,8 +24,6 @@ function BlogListPageInner() {
   const [showModal, setShowModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
-  const categoryFromUrl = searchParams.get('categories');
 
   // Pagination & sorting state
   const [sortOption, setSortOption] = useState<"newest" | "oldest" | "views">(
@@ -37,10 +34,10 @@ function BlogListPageInner() {
 
   // Number of blogs per page
   const LIMIT = 10;
-  const handleRequestDelete = (id:string) => {
+  const handleRequestDelete = (id: string) => {
     setSelectedBlogId(id);
     setShowModal(true);
-  }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -60,7 +57,7 @@ function BlogListPageInner() {
           page,
           limit: LIMIT,
         };
-   
+
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_BASE}/blogs`,
           { params }
@@ -93,6 +90,7 @@ function BlogListPageInner() {
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/categories`);
         setCategories(res.data);
+        const categoryFromUrl = searchParams.get('categories');
         if (categoryFromUrl) {
           setSelectedCategory(categoryFromUrl);
         }
@@ -100,9 +98,10 @@ function BlogListPageInner() {
         console.error("Failed to fetch categories:", err);
         setCategories([]);
       }
-    }
+    };
     fetchCategories();
-  }, [categoryFromUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   useEffect(() => {
     let temp = blogs;
@@ -125,8 +124,8 @@ function BlogListPageInner() {
     }
 
     temp = temp.sort((a, b) => {
-      const dateA = new Date(a.publishedAt ).getTime();
-      const dateB = new Date(b.publishedAt ).getTime();
+      const dateA = new Date(a.publishedAt).getTime();
+      const dateB = new Date(b.publishedAt).getTime();
       return sort === 'latest' ? dateB - dateA : dateA - dateB;
     });
 
@@ -137,7 +136,7 @@ function BlogListPageInner() {
   const handleDelete = async (slug: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${slug}`, { 
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}/blogs/${slug}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -190,7 +189,7 @@ function BlogListPageInner() {
           <option value="oldest">Cũ nhất</option>
         </select>
       </div>
-     
+
       <div className=" mb-2 bg-gray-100 pl-4 p-2 rounded shadow">
         <h1 className="text-xl font-semibold mb-2">Danh mục</h1>
         <CategoryFilter
@@ -201,17 +200,17 @@ function BlogListPageInner() {
       </div>
       <div className=" mb-2 bg-gray-100 pl-4 p-2 rounded shadow">
         <h1 className="text-xl font-semibold mb-2">Thẻ</h1>
-         <TagFilter
-        tags={tags}
-        selected={selectedTag}
-        onSelect={setSelectedTag}
-      />
+        <TagFilter
+          tags={tags}
+          selected={selectedTag}
+          onSelect={setSelectedTag}
+        />
       </div>
-     
+
       {featured && (
         <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 mb-6">
           <p className="text-sm text-yellow-800 font-semibold">📌 Featured Blog</p>
-          <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete}/>
+          <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete} />
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -248,10 +247,10 @@ function BlogListPageInner() {
   );
 }
 
-export default function BlogListPage() {
+export default function BlogListPage({ searchParams }: { searchParams: URLSearchParams }) {
   return (
     <Suspense fallback={<p>Đang tải bài viết...</p>}>
-      <BlogListPageInner />
+      <BlogListPageInner searchParams={searchParams} />
     </Suspense>
   );
 }
