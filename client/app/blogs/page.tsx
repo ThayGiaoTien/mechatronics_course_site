@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import DeleteConfirModal from '../components/DeleteConfirmModal';
 
 import  {Blog}  from '@/types/blog';
 import CategorySection from '../components/CategorySection';
+
 
 export default function BlogListPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -107,13 +108,6 @@ export default function BlogListPage() {
     }
     fetchCategories();
   }, [categoryFromUrl]);
-
-  // // Fetch categories from URL
-  // useEffect(() => {
-  //   if (categoryFromUrl) {
-  //     setSelectedCategory(categoryFromUrl);
-  //   }
-  // }, [categoryFromUrl]);
   
   useEffect(() => {
     let temp = blogs;
@@ -167,6 +161,7 @@ export default function BlogListPage() {
   if (loading) return <p>Đang tải bài viết...</p>;
 
   return (
+   
     <div className="w-full md:w-3/5 mx-auto mt-30 px-4 py-6">
       {/* ✅ Delete confirmation modal */}
       <DeleteConfirModal
@@ -219,13 +214,16 @@ export default function BlogListPage() {
         onSelect={setSelectedTag}
       />
       </div>
-     
-      {featured && (
-        <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 mb-6">
-          <p className="text-sm text-yellow-800 font-semibold">📌 Featured Blog</p>
-          <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete}/>
-        </div>
-      )}
+
+      <Suspense fallback={<div>Loading...</div>}>
+        {featured && (
+          <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 mb-6">
+            <p className="text-sm text-yellow-800 font-semibold">📌 Featured Blog</p>
+            <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete} />
+          </div>
+        )}
+      </Suspense>
+    
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {filteredBlogs.length === 0 ? (
           <p className="text-gray-500">Không tìm thấy blog nào.</p>
@@ -256,7 +254,6 @@ export default function BlogListPage() {
           Tiếp theo
         </button>
       </div>
-
     </div>
   );
 }
