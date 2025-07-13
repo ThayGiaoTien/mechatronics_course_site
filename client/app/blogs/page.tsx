@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { URLSearchParams } from 'node:url' 
 
 
 import BlogCard from '../components/BlogCard';
@@ -26,7 +27,14 @@ export default function BlogListPage() {
   const [showModal, setShowModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const categoryFromUrl = new URLSearchParams(window.location.search).get('categories');
+  const [categoryFromUrl, setCategoryFromUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const param = new URLSearchParams(window.location.search).get('categories');
+      setCategoryFromUrl(param);
+    }
+  }, []);
  // const [error, setError] = useState<string | null>(null);
 
   // Pagination & sorting state
