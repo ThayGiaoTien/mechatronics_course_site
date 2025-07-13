@@ -57,12 +57,12 @@ export default function BlogDetailPage() {
       <div className="w-full md:w-2/5 md:max-w-xs mt-30 md:mt-30 p-6 shadow">
         <RelatedBlogsSection blogs={relatedBlogs} />
       </div>
-      <div className="w-full md:w-3/5 mt-10 md:mt-30 p-6">
+      <div className="w-full md:w-3/5 mt-10 md:mt-30 pl-2 pr-1 md:p-6">
       {blog.thumbnail && (
         <img
         src={blog.thumbnail}
         alt="Blog Thumbnail"
-        className="w-auto h-64 object-cover rounded-xl mb-6 shadow"
+        className="w-auto h-32 md:h-64 object-cover rounded-xl mb-6 shadow"
         />
       )}
       <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
