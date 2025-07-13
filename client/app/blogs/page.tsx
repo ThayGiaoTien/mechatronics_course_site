@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { URLSearchParams } from 'node:url' 
+
 
 
 import BlogCard from '../components/BlogCard';
