@@ -54,7 +54,10 @@ export default function BlogDetailPage() {
 
   return (
     <div className="container mx-auto px-4 flex flex-col md:flex-row gap-8">
-      <div className="w-full md:w-3/5 mt-30 p-6">
+      <div className="w-full md:w-2/5 md:max-w-xs mt-30 md:mt-30 p-6 shadow">
+        <RelatedBlogsSection blogs={relatedBlogs} />
+      </div>
+      <div className="w-full md:w-3/5 mt-10 md:mt-30 p-6">
       {blog.thumbnail && (
         <img
         src={blog.thumbnail}
@@ -83,9 +86,7 @@ export default function BlogDetailPage() {
 
       <MarkDownEditor content={blog.content} />
       </div>
-      <div className="w-full md:w-2/5 md:max-w-xs mt-10 md:mt-30 p-6   shadow">
-        <RelatedBlogsSection blogs={relatedBlogs} />
-      </div>
+      
     </div>
 
     
