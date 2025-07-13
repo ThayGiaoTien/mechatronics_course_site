@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
@@ -10,6 +11,7 @@ import TagFilter from '../components/TagFilter';
 import DeleteConfirModal from '../components/DeleteConfirmModal';
 
 import  {Blog}  from '@/types/blog';
+import CategorySection from '../components/CategorySection';
 
 export default function BlogListPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -25,6 +27,8 @@ export default function BlogListPage() {
   const [showModal, setShowModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get('categories');
  // const [error, setError] = useState<string | null>(null);
 
   // Pagination & sorting state
@@ -36,8 +40,6 @@ export default function BlogListPage() {
 
   // Number of blogs per page
   const LIMIT = 10;
-
-  
   const handleRequestDelete = (id:string) => {
     setSelectedBlogId(id);
     setShowModal(true);
@@ -49,37 +51,33 @@ export default function BlogListPage() {
     setIsAdmin(user.isAdmin);
   }, []);
 
-
   // Fetch blogs and categories on initial load
   useEffect(() => {
     setLoading(true);
 
     const fetchBlogs = async () => {
       try {
-        // Build the query string
+        // Build query params
+        const params: any = {
+          sort: sortOption,
+          page,
+          limit: LIMIT,
+        };
+   
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_BASE}/blogs`,
-          {
-            params: {
-              sort: sortOption,
-              page,     // 1-based page
-              limit: LIMIT,
-            },
-          }
+          { params }
         );
         const allBlogs: Blog[] = res.data;
         setBlogs(allBlogs);
 
-        const allCategories = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.categories || []))) as string[];
         const allTags = Array.from(new Set(allBlogs.flatMap((b: Blog) => b.tags || []))) as string[];
-        setCategories(allCategories);
         setTags(allTags);
 
-        // Set default selected category to the first one
-        const pinned = allBlogs.find((b:Blog) => b.tags?.includes('featured'));
+        // Set featured blog
+        const pinned = allBlogs.find((b: Blog) => b.tags?.includes('featured'));
         setFeatured(pinned ?? null);
         setFilteredBlogs(allBlogs);
-        // If we got fewer than LIMIT items, there's no next page
         setHasMore(allBlogs.length === LIMIT);
       } catch (err) {
         console.error("Failed to fetch blogs:", err);
@@ -90,8 +88,33 @@ export default function BlogListPage() {
       }
     };
     fetchBlogs();
-  }, [sortOption, page, selectedBlogId]);
+    // Add selectedCategory as dependency
+  }, [sortOption, page, selectedBlogId, selectedCategory, ]);
 
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/categories`);
+        setCategories(res.data);
+        if (categoryFromUrl) {
+          setSelectedCategory(categoryFromUrl);
+        }
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+        setCategories([]);
+      }
+    }
+    fetchCategories();
+  }, [categoryFromUrl]);
+
+  // // Fetch categories from URL
+  // useEffect(() => {
+  //   if (categoryFromUrl) {
+  //     setSelectedCategory(categoryFromUrl);
+  //   }
+  // }, [categoryFromUrl]);
+  
   useEffect(() => {
     let temp = blogs;
 
@@ -141,10 +164,10 @@ export default function BlogListPage() {
       alert('Failed to delete blog.');
     }
   };
-  if (loading) return <p>Loading Blogs...</p>;
+  if (loading) return <p>Đang tải bài viết...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto mt-30 px-4 py-6">
+    <div className="w-full md:w-3/5 mx-auto mt-30 px-4 py-6">
       {/* ✅ Delete confirmation modal */}
       <DeleteConfirModal
         open={showModal}
@@ -156,49 +179,56 @@ export default function BlogListPage() {
         }}
         message="Are you sure you want to delete this course?"
       />
-      <h1 className="text-3xl font-bold mb-6">All Blogs</h1>
+      <h1 className="text-3xl font-bold mb-6">Tất cả bài viết</h1>
       {isAdmin && (
         <Link href="/admin/create-blog">
           <button className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Create New Blog</button>
         </Link>
       )}
-      <input
-        type="text"
-        placeholder="Search blogs..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full mb-4 px-3 py-2 border rounded shadow-sm"
-      />
-
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center flex-wrap mb-4 gap-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm bài viết..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 min-w-0 h-9 px-3 py-2 border rounded shadow-sm"
+        />
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as 'latest' | 'oldest')}
+          className="border min-w-0 h-9 px-2 py-1 rounded"
+        >
+          <option value="latest">Mới nhất</option>
+          <option value="oldest">Cũ nhất</option>
+        </select>
+      </div>
+     
+      <div className=" mb-2 bg-gray-100 pl-4 p-2 rounded shadow">
+        <h1 className="text-xl font-semibold mb-2">Danh mục</h1>
         <CategoryFilter
           categories={categories}
           selected={selectedCategory}
           onSelect={setSelectedCategory}
         />
-        <select
-          value={sort}
-          onChange={(e) => setSort(e.target.value as 'latest' | 'oldest')}
-          className="border px-2 py-1 rounded"
-        >
-          <option value="latest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-        </select>
       </div>
-      <TagFilter
+      <div className=" mb-2 bg-gray-100 pl-4 p-2 rounded shadow">
+        <h1 className="text-xl font-semibold mb-2">Thẻ</h1>
+         <TagFilter
         tags={tags}
         selected={selectedTag}
         onSelect={setSelectedTag}
       />
+      </div>
+     
       {featured && (
         <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 mb-6">
           <p className="text-sm text-yellow-800 font-semibold">📌 Featured Blog</p>
           <BlogCard blog={featured} isAdmin={isAdmin} onRequestDelete={handleRequestDelete}/>
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {filteredBlogs.length === 0 ? (
-          <p className="text-gray-500">No blogs found.</p>
+          <p className="text-gray-500">Không tìm thấy blog nào.</p>
         ) : (
           filteredBlogs.map((blog, index) => (
             <BlogCard key={index} blog={blog} isAdmin={isAdmin} onRequestDelete={handleRequestDelete} />
@@ -212,7 +242,7 @@ export default function BlogListPage() {
           disabled={page === 1}
           onClick={() => setPage((p) => Math.max(1, p - 1))}
         >
-          Previous
+          Trước
         </button>
         <button
           className={`px-4 py-2 rounded ${
@@ -223,7 +253,7 @@ export default function BlogListPage() {
           disabled={!hasMore}
           onClick={() => hasMore && setPage((p) => p + 1)}
         >
-          Next
+          Tiếp theo
         </button>
       </div>
 

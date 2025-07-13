@@ -24,7 +24,6 @@ router.post('/', auth, admin, async (req, res) => {
     if (req.body.isPublished) {
 
       saved.publishedAt = new Date();
-     
       await saved.save();
     }
     console.log('Blog created successfully:', saved);
@@ -34,22 +33,9 @@ router.post('/', auth, admin, async (req, res) => {
     console.error('Error creating blog:', err);
     return res.status(500).json({ error: 'Failed to create blog' });
   }
-  
- 
-   
 });
 
-// Get all published blogs
-// router.get('/', async (req, res) => {
-//   try {
-//     const blogs = await Blog.find({ isPublished: true }).sort({ publishedAt: -1 });
-//     res.json(blogs);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 
-// GET /api/blogs?sort=newest|oldest|views&page=1&limit=10
 router.get("/", async (req, res) => {
   try {
     const { sort = "newest", page = "1", limit = "10" } = req.query;
@@ -79,6 +65,30 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error("Error in GET /api/blogs:", err);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get related blogs by category
+// routes/blogs.js or wherever your blog routes are
+router.get('/related', async (req, res) => {
+  const { category, excludeId } = req.query;
+  console.log('Fetching related blogs for category:', category, 'excluding ID:', excludeId);  
+  if (!category || !excludeId) {
+    return res.status(400).json({ message: 'Category and excludeId are required' });
+  }
+  try {
+    const related = await Blog.find({
+      categories: category,
+      _id: { $ne: excludeId },
+      isPublished: true,
+    })
+      .sort({ createdAt: -1 })
+      .select('title slug') // Only return title and slug
+      
+    res.json(related);
+    console.log('Related blogs fetched successfully:', related);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching related blogs' });
   }
 });
 
@@ -118,5 +128,6 @@ router.delete('/:id', auth, admin, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;

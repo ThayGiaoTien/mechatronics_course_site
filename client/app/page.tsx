@@ -8,22 +8,16 @@ import BlogCard from "./components/BlogCard";
 import axios from "axios";
 
 import  {Blog}  from '@/types/blog';
+import CategorySection from "@/app/components/CategorySection";
 
-// export const metadata = {
-//   title: "Mechatronics – Home",
-//   description: "Explore mechatronics courses, blogs, and projects.",
-//   openGraph: {
-//     title: "Mechatronics – Home",
-//     description: "Explore mechatronics courses, blogs, and projects.",
-//     url: "https://mechatronics-course-site.vercel.app/",
-//     siteName: "Mechatronics Site",
-//   },
-// };
 
 export default function HomePage() {
   // State for fetched blogs
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Fetch categories for the category section
+   const [categories, setCategories] = useState<string[]>([]);
 
   // Pagination & sorting state
   const [sortOption, setSortOption] = useState<"newest" | "oldest" | "views">(
@@ -34,7 +28,22 @@ export default function HomePage() {
 
   // Number of blogs per page
   const LIMIT = 10;
-
+  
+  useEffect(() => {
+    // Fetch all categories
+    // asynchronously fetch categories from the API
+    const fetchCategories = async () => {
+      try {
+        // Fetch categories from the API
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/categories`);
+        setCategories(res.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+  
   // Re-fetch whenever sortOption or page changes
   useEffect(() => {
     setLoading(true);
@@ -77,27 +86,11 @@ export default function HomePage() {
 
   return (
     <>
-     
-      {/* <section
-        className="relative mt-20 h-69 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBY70Tbvm7asm06CGKtM8TZtBop4aD12jxkQ&s')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex h-full items-center justify-center">
-          <div className="text-center text-white">
-            <p className="mt-1 text-2xl font-semibold">
-              Tổng hợp các tài liệu hay nhất về  lĩnh vực cơ - điện tử  (mechatronics) từ cơ bản đến nâng cao.
-            </p>
-          </div>
-        </div>
-      </section> */}
 
       {/* Main Content */}
       <main className="max-w-auto mx-auto mt-30 flex grow flex-col bg-gray-100 pt-6">
-        <div className="max-w-5xl mx-auto px-4">
+        <CategorySection categories={categories} />
+        <div className="w-full md:w-3/5 mx-auto px-4">
           {/* Sort Bar */}
           <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
             <div className="flex gap-2">
@@ -109,7 +102,7 @@ export default function HomePage() {
                 }`}
                 onClick={() => handleSortChange("newest")}
               >
-                Newest
+                Mới nhất
               </button>
               <button
                 className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -119,7 +112,7 @@ export default function HomePage() {
                 }`}
                 onClick={() => handleSortChange("oldest")}
               >
-                Oldest
+                Cũ nhất
               </button>
               <button
                 className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -129,7 +122,7 @@ export default function HomePage() {
                 }`}
                 onClick={() => handleSortChange("views")}
               >
-                Most Viewed
+                Xem nhiều nhất
               </button>
             </div>
             <div className="text-sm text-gray-500">

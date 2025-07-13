@@ -37,6 +37,11 @@ export default function MarkdownRenderer({ content }: Props) {
           ],
           rehypeKatex
         ]}
+        components={{
+        h1: ({ node, ...props }) => <h1 className="mt-8 mb-4 text-2xl" {...props} />,
+        h2: ({ node, ...props }) => <h2 className="mt-6 mb-3 text-xl" {...props} />,
+        // etc…
+        }}
       />
     </article>
   );
