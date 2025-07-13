@@ -29,26 +29,18 @@ export default function RelatedBlogsSection({ blogs }: { blogs: RelatedBlog[] })
         </ul>
       </div>
 
-      {/* Mobile: collapsible */}
+      {/* Mobile: always open */}
       <div className="md:hidden">
-        <button
-          className="w-full text-left font-bold text-blue-600 mb-2"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? 'Ẩn ▲' : 'Bài viết liên quan ▼'}
-        </button>
- 
-        {isOpen && (
-          <ul className="space-y-2 bg-gray-50 p-4 border rounded shadow">
-            {blogs.map((blog) => (
-              <li key={blog._id}>
-                <Link href={`/blogs/${blog.slug}`}>
-                  <span className="text-blue-600 hover:underline">{blog.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        <h3 className="text-lg font-bold mb-3 text-blue-600">Bài viết liên quan</h3>
+        <ul className="space-y-2 bg-gray-50 p-4 border rounded shadow">
+          {blogs.map((blog) => (
+        <li key={blog._id}>
+          <Link href={`/blogs/${blog.slug}`}>
+            <span className="text-blue-600 hover:underline">{blog.title}</span>
+          </Link>
+        </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
